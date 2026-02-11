@@ -1,0 +1,11 @@
+venv/
+backend/venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.env
+backend/.env
+.idea/
+.vscode/
+backend/alibaba_tool/

@@ -1,0 +1,4630 @@
+[
+  {
+    "numberInputTitle": null,
+    "templatePropertyValueParentList": null,
+    "values": [
+      {
+        "vid": 2144,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Glass",
+        "group": null
+      },
+      {
+        "vid": 2145,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Bamboo",
+        "group": null
+      },
+      {
+        "vid": 2147,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Metal",
+        "group": null
+      },
+      {
+        "vid": 2148,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Plastic",
+        "group": null
+      },
+      {
+        "vid": 2149,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Rattan",
+        "group": null
+      },
+      {
+        "vid": 2151,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Wood",
+        "group": null
+      },
+      {
+        "vid": 2152,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Fabric",
+        "group": null
+      },
+      {
+        "vid": 2156,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Ceramic",
+        "group": null
+      },
+      {
+        "vid": 2157,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Wicker",
+        "group": null
+      },
+      {
+        "vid": 2161,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Aluminum",
+        "group": null
+      },
+      {
+        "vid": 2162,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Bronze",
+        "group": null
+      },
+      {
+        "vid": 2163,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Brass",
+        "group": null
+      },
+      {
+        "vid": 2164,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Steel",
+        "group": null
+      },
+      {
+        "vid": 2165,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Cast Iron",
+        "group": null
+      },
+      {
+        "vid": 2166,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Chrome",
+        "group": null
+      },
+      {
+        "vid": 2167,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Copper",
+        "group": null
+      },
+      {
+        "vid": 2168,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Nickel Silver",
+        "group": null
+      },
+      {
+        "vid": 2170,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Silver",
+        "group": null
+      },
+      {
+        "vid": 2172,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Pewter",
+        "group": null
+      },
+      {
+        "vid": 2173,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Acrylic",
+        "group": null
+      },
+      {
+        "vid": 2174,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Beech",
+        "group": null
+      },
+      {
+        "vid": 2176,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Birch wood",
+        "group": null
+      },
+      {
+        "vid": 2177,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Cedar",
+        "group": null
+      },
+      {
+        "vid": 2178,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Cherry",
+        "group": null
+      },
+      {
+        "vid": 2179,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Elm",
+        "group": null
+      },
+      {
+        "vid": 2180,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Hardwood",
+        "group": null
+      },
+      {
+        "vid": 2181,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Mahogany",
+        "group": null
+      },
+      {
+        "vid": 2182,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Maple",
+        "group": null
+      },
+      {
+        "vid": 2183,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Oak",
+        "group": null
+      },
+      {
+        "vid": 2184,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Pine wood",
+        "group": null
+      },
+      {
+        "vid": 2185,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Rosewood",
+        "group": null
+      },
+      {
+        "vid": 2186,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Teak",
+        "group": null
+      },
+      {
+        "vid": 2187,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Walnut",
+        "group": null
+      },
+      {
+        "vid": 2188,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Willow",
+        "group": null
+      },
+      {
+        "vid": 2499,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Silicone",
+        "group": null
+      },
+      {
+        "vid": 2500,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Earthenware",
+        "group": null
+      },
+      {
+        "vid": 2502,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Polypropylene",
+        "group": null
+      },
+      {
+        "vid": 2507,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Polystyrene",
+        "group": null
+      },
+      {
+        "vid": 2509,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Nylon",
+        "group": null
+      },
+      {
+        "vid": 2512,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Polyvinyl chloride",
+        "group": null
+      },
+      {
+        "vid": 2513,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Alloy Steel",
+        "group": null
+      },
+      {
+        "vid": 2518,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Acrylonitrile Butadiene Styrene",
+        "group": null
+      },
+      {
+        "vid": 3301,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Rubber",
+        "group": null
+      },
+      {
+        "vid": 3333,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Paper",
+        "group": null
+      },
+      {
+        "vid": 3847,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Crystal",
+        "group": null
+      },
+      {
+        "vid": 3870,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Multi-ply",
+        "group": null
+      },
+      {
+        "vid": 3871,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Cork",
+        "group": null
+      },
+      {
+        "vid": 3872,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Hard Anodized Aluminum",
+        "group": null
+      },
+      {
+        "vid": 3874,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Porcelain",
+        "group": null
+      },
+      {
+        "vid": 3875,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Dolomite",
+        "group": null
+      },
+      {
+        "vid": 3877,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Titanium",
+        "group": null
+      },
+      {
+        "vid": 3878,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Zinc",
+        "group": null
+      },
+      {
+        "vid": 3880,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Borosilicate Glass",
+        "group": null
+      },
+      {
+        "vid": 3881,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Thermoplastic Rubber",
+        "group": null
+      },
+      {
+        "vid": 3882,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Manufactured wood",
+        "group": null
+      },
+      {
+        "vid": 3883,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Olive",
+        "group": null
+      },
+      {
+        "vid": 35682,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Terracotta",
+        "group": null
+      },
+      {
+        "vid": 5608,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Abs (acrylonitrile Butadiene Styrene)",
+        "group": null
+      },
+      {
+        "vid": 35683,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Melamine",
+        "group": null
+      },
+      {
+        "vid": 35684,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "PC (Polycarbonate)",
+        "group": null
+      },
+      {
+        "vid": 35601,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "PET (polyethylene Terephthalate)",
+        "group": null
+      },
+      {
+        "vid": 2171,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Stainless Steel",
+        "group": null
+      },
+      {
+        "vid": 37727,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "PS (polystyrene)",
+        "group": null
+      },
+      {
+        "vid": 37728,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Tritan",
+        "group": null
+      },
+      {
+        "vid": 37729,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "enamel",
+        "group": null
+      },
+      {
+        "vid": 37730,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "wheat straw",
+        "group": null
+      },
+      {
+        "vid": 4215,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Paraffin wax",
+        "group": null
+      },
+      {
+        "vid": 58638,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Polytetrafluoroethylene (Teflon)",
+        "group": null
+      },
+      {
+        "vid": 147176,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "POM",
+        "group": null
+      },
+      {
+        "vid": 2515,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Marble",
+        "group": null
+      },
+      {
+        "vid": 7972,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Granite",
+        "group": null
+      },
+      {
+        "vid": 378008,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Slate",
+        "group": null
+      },
+      {
+        "vid": 11781,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Soapstone",
+        "group": null
+      }
+    ],
+    "referenceType": null,
+    "pid": 89,
+    "templatePid": 1003245,
+    "required": false,
+    "propertyValueType": 0,
+    "minValue": "",
+    "feature": 0,
+    "valueRule": 0,
+    "propertyChooseTitle": null,
+    "showType": 0,
+    "parentTemplatePid": 0,
+    "mainSale": null,
+    "templateModuleId": 232654,
+    "parentSpecId": null,
+    "maxValue": "",
+    "chooseMaxNum": 1,
+    "showCondition": null,
+    "valuePrecision": 0,
+    "controlType": 1,
+    "valueUnitList": null,
+    "name": "Material",
+    "isSale": false,
+    "refPid": 121,
+    "value": "Glass",
+    "vid": 2144,
+    "valueUnitId": "",
+    "valueUnit": ""
+  },
+  {
+    "numberInputTitle": null,
+    "templatePropertyValueParentList": null,
+    "values": [
+      {
+        "vid": 25073,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Christmas",
+        "group": null
+      },
+      {
+        "vid": 25074,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Halloween",
+        "group": null
+      },
+      {
+        "vid": 25075,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Easter",
+        "group": null
+      },
+      {
+        "vid": 25076,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Hanukkah",
+        "group": null
+      },
+      {
+        "vid": 25077,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Thanksgiving",
+        "group": null
+      },
+      {
+        "vid": 29500,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "St. Patrick's Day",
+        "group": null
+      },
+      {
+        "vid": 29501,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Valentine's Day",
+        "group": null
+      },
+      {
+        "vid": 35434,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Ramadan (Eid Al-Fitr)",
+        "group": null
+      },
+      {
+        "vid": 35436,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Father's Day",
+        "group": null
+      },
+      {
+        "vid": 35437,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Mother's Day",
+        "group": null
+      },
+      {
+        "vid": 35438,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Graduation",
+        "group": null
+      },
+      {
+        "vid": 35439,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Juneteenth",
+        "group": null
+      },
+      {
+        "vid": 35440,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "4th of July",
+        "group": null
+      },
+      {
+        "vid": 35441,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Oktoberfest",
+        "group": null
+      },
+      {
+        "vid": 35442,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Day of the Dead",
+        "group": null
+      },
+      {
+        "vid": 35443,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Diwali",
+        "group": null
+      },
+      {
+        "vid": 37473,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Memorial Day",
+        "group": null
+      },
+      {
+        "vid": 37474,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Saint Nicholas Day",
+        "group": null
+      },
+      {
+        "vid": 37547,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Kwanzaa",
+        "group": null
+      },
+      {
+        "vid": 37548,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Labor Day",
+        "group": null
+      },
+      {
+        "vid": 37549,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Grandparents Day",
+        "group": null
+      },
+      {
+        "vid": 37733,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Earth Day",
+        "group": null
+      },
+      {
+        "vid": 37734,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Purim",
+        "group": null
+      },
+      {
+        "vid": 37735,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "St. Patrick's Day",
+        "group": null
+      },
+      {
+        "vid": 37736,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "National Freedom Day",
+        "group": null
+      },
+      {
+        "vid": 37737,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Groundhog Day",
+        "group": null
+      },
+      {
+        "vid": 37738,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "National Wear Red Day",
+        "group": null
+      },
+      {
+        "vid": 37739,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Palm Sunday",
+        "group": null
+      },
+      {
+        "vid": 37740,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Lei Day",
+        "group": null
+      },
+      {
+        "vid": 37741,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Cinco de Mayo",
+        "group": null
+      },
+      {
+        "vid": 37742,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "National Nurses Day",
+        "group": null
+      },
+      {
+        "vid": 37743,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Eid ul Adha",
+        "group": null
+      },
+      {
+        "vid": 37744,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "French National Day",
+        "group": null
+      },
+      {
+        "vid": 37745,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Muharram/Islamic New Year",
+        "group": null
+      },
+      {
+        "vid": 37746,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "National Aviation Day",
+        "group": null
+      },
+      {
+        "vid": 37747,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "National Grandparents Day",
+        "group": null
+      },
+      {
+        "vid": 37748,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "St. Nicholas Day",
+        "group": null
+      }
+    ],
+    "referenceType": null,
+    "pid": 1013,
+    "templatePid": 1003246,
+    "required": false,
+    "propertyValueType": 0,
+    "minValue": "",
+    "feature": 0,
+    "valueRule": 0,
+    "propertyChooseTitle": null,
+    "showType": 0,
+    "parentTemplatePid": 0,
+    "mainSale": null,
+    "templateModuleId": 232654,
+    "parentSpecId": null,
+    "maxValue": "",
+    "chooseMaxNum": 5,
+    "showCondition": null,
+    "valuePrecision": 0,
+    "controlType": 1,
+    "valueUnitList": null,
+    "name": "Holidays",
+    "isSale": false,
+    "refPid": 423,
+    "value": "Christmas,Halloween",
+    "vid": "25073,25074"
+  },
+  {
+    "numberInputTitle": null,
+    "templatePropertyValueParentList": null,
+    "values": null,
+    "referenceType": 1,
+    "pid": 1467,
+    "templatePid": 1003247,
+    "required": false,
+    "propertyValueType": 0,
+    "minValue": "",
+    "feature": 0,
+    "valueRule": 0,
+    "propertyChooseTitle": null,
+    "showType": 0,
+    "parentTemplatePid": 0,
+    "mainSale": null,
+    "templateModuleId": 232654,
+    "parentSpecId": null,
+    "maxValue": "",
+    "chooseMaxNum": 1,
+    "showCondition": null,
+    "valuePrecision": 0,
+    "controlType": 1,
+    "valueUnitList": null,
+    "name": "Brand",
+    "isSale": false,
+    "refPid": 1960,
+    "value": "",
+    "vid": null,
+    "valueUnitId": "",
+    "valueUnit": ""
+  },
+  {
+    "numberInputTitle": null,
+    "templatePropertyValueParentList": null,
+    "values": [
+      {
+        "vid": 67313,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Yes",
+        "group": null
+      },
+      {
+        "vid": 67314,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": null,
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "No",
+        "group": null
+      }
+    ],
+    "referenceType": null,
+    "pid": 1795,
+    "templatePid": 1003248,
+    "required": false,
+    "propertyValueType": 0,
+    "minValue": "",
+    "feature": 0,
+    "valueRule": 0,
+    "propertyChooseTitle": null,
+    "showType": 0,
+    "parentTemplatePid": 0,
+    "mainSale": null,
+    "templateModuleId": 232654,
+    "parentSpecId": null,
+    "maxValue": "",
+    "chooseMaxNum": 1,
+    "showCondition": null,
+    "valuePrecision": 0,
+    "controlType": 1,
+    "valueUnitList": null,
+    "name": "Can Be Used For Food Contact",
+    "isSale": false,
+    "refPid": 4010,
+    "value": "Yes",
+    "vid": 67313,
+    "valueUnitId": "",
+    "valueUnit": ""
+  },
+  {
+    "numberInputTitle": null,
+    "templatePropertyValueParentList": [
+      {
+        "vids": [
+          213321,
+          213322
+        ],
+        "parentVids": [
+          2176
+        ]
+      },
+      {
+        "vids": [
+          213321,
+          213322
+        ],
+        "parentVids": [
+          2179
+        ]
+      },
+      {
+        "vids": [
+          213321,
+          213322
+        ],
+        "parentVids": [
+          2180
+        ]
+      },
+      {
+        "vids": [
+          213321,
+          213322
+        ],
+        "parentVids": [
+          2181
+        ]
+      },
+      {
+        "vids": [
+          213321,
+          213322
+        ],
+        "parentVids": [
+          2182
+        ]
+      },
+      {
+        "vids": [
+          213321,
+          213322
+        ],
+        "parentVids": [
+          2183
+        ]
+      },
+      {
+        "vids": [
+          213321,
+          213322
+        ],
+        "parentVids": [
+          2151
+        ]
+      },
+      {
+        "vids": [
+          213321,
+          213322
+        ],
+        "parentVids": [
+          2184
+        ]
+      },
+      {
+        "vids": [
+          213321,
+          213322
+        ],
+        "parentVids": [
+          2185
+        ]
+      },
+      {
+        "vids": [
+          213321,
+          213322
+        ],
+        "parentVids": [
+          3882
+        ]
+      },
+      {
+        "vids": [
+          213321,
+          213322
+        ],
+        "parentVids": [
+          2186
+        ]
+      },
+      {
+        "vids": [
+          213321,
+          213322
+        ],
+        "parentVids": [
+          2187
+        ]
+      },
+      {
+        "vids": [
+          213321,
+          213322
+        ],
+        "parentVids": [
+          3871
+        ]
+      }
+    ],
+    "values": [
+      {
+        "vid": 213322,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          2151,
+          2176,
+          2179,
+          2180,
+          2181,
+          2182,
+          2183,
+          2184,
+          2185,
+          2186,
+          2187,
+          3871,
+          3882
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Composite Wood",
+        "group": null
+      },
+      {
+        "vid": 213321,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          2151,
+          2176,
+          2179,
+          2180,
+          2181,
+          2182,
+          2183,
+          2184,
+          2185,
+          2186,
+          2187,
+          3871,
+          3882
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Log",
+        "group": null
+      }
+    ],
+    "referenceType": null,
+    "pid": 2230,
+    "templatePid": 1416051,
+    "required": false,
+    "propertyValueType": 0,
+    "minValue": "",
+    "feature": 0,
+    "valueRule": 0,
+    "propertyChooseTitle": null,
+    "showType": 1,
+    "parentTemplatePid": 1003245,
+    "mainSale": null,
+    "templateModuleId": 232654,
+    "parentSpecId": null,
+    "maxValue": "",
+    "chooseMaxNum": 1,
+    "showCondition": null,
+    "valuePrecision": 0,
+    "controlType": 1,
+    "valueUnitList": null,
+    "name": "Wood Type",
+    "isSale": false,
+    "refPid": 7317,
+    "value": "",
+    "vid": null,
+    "valueUnitId": "",
+    "valueUnit": ""
+  },
+  {
+    "numberInputTitle": null,
+    "templatePropertyValueParentList": [
+      {
+        "vids": [
+          213323,
+          213324,
+          213325,
+          213326,
+          213327,
+          213328,
+          213329,
+          213330,
+          213331,
+          213332,
+          213333,
+          213334,
+          213335,
+          213336,
+          213337,
+          213338,
+          213339,
+          213340,
+          213341,
+          213342,
+          213343,
+          213344,
+          213345,
+          213346,
+          213347,
+          213348,
+          213349,
+          213350,
+          213351,
+          213352,
+          213353,
+          213354,
+          213355,
+          213356,
+          213357,
+          213358,
+          213359,
+          213360,
+          213361,
+          213362,
+          213363,
+          213364,
+          213365,
+          213366,
+          213367,
+          213368,
+          213369,
+          213370,
+          213371,
+          213372,
+          213373,
+          213374,
+          213375,
+          213376,
+          213377,
+          213378,
+          213379,
+          213380,
+          213381,
+          213382,
+          213383,
+          213384,
+          213385,
+          213386,
+          213387,
+          213388,
+          213389,
+          213390,
+          213391,
+          213392,
+          213393,
+          213394,
+          213395,
+          213396,
+          213397,
+          213398,
+          213399,
+          213400,
+          213401,
+          213402,
+          213403,
+          213404,
+          213405,
+          213406,
+          213407,
+          213408,
+          213409,
+          213410,
+          213411,
+          213412,
+          213413,
+          213414,
+          213415,
+          213416,
+          213417,
+          213418,
+          213419,
+          213420,
+          213421,
+          213422,
+          213423,
+          213424,
+          213425,
+          213426,
+          213427,
+          213428,
+          213429,
+          213430,
+          213431,
+          213432,
+          213433,
+          213434,
+          213435,
+          213436,
+          213437,
+          213438,
+          213439,
+          213440,
+          213441,
+          213442,
+          213443,
+          213444,
+          213445,
+          213446,
+          213447,
+          213448,
+          213449,
+          213450,
+          213451,
+          213452,
+          213453,
+          213454,
+          213455,
+          213456,
+          213457,
+          213458,
+          213459,
+          213460,
+          213461,
+          213462,
+          213463,
+          213464,
+          213465,
+          213466,
+          213467,
+          213468,
+          213469,
+          213470,
+          213471,
+          213472,
+          213473,
+          213474,
+          213475,
+          213476,
+          213477,
+          213478,
+          213479,
+          213480,
+          213481,
+          213482,
+          213483,
+          213484,
+          213485,
+          213486,
+          213487,
+          213488,
+          213489,
+          213490,
+          213491,
+          213492,
+          213493,
+          213494,
+          213495,
+          213496,
+          213497,
+          213498,
+          213499,
+          213500,
+          213501,
+          213502,
+          213503,
+          213504,
+          213505,
+          213506,
+          213507,
+          213508,
+          213509,
+          213510,
+          213511,
+          213512,
+          213513,
+          213514,
+          213515,
+          213516,
+          213517,
+          213518,
+          213519,
+          213520,
+          213521,
+          213522,
+          213523,
+          213524,
+          213525,
+          213526,
+          213527,
+          213528,
+          213529,
+          213530,
+          213531,
+          213532,
+          213533,
+          213534,
+          213535,
+          213536,
+          213537,
+          213538,
+          213539,
+          213540,
+          213541,
+          213542,
+          213543,
+          213544,
+          213545,
+          213546,
+          213547,
+          213548,
+          213549,
+          213550,
+          213551,
+          213552,
+          213553,
+          213554,
+          213555,
+          213556,
+          213557,
+          213558,
+          213559,
+          213560,
+          213561,
+          213562,
+          213563,
+          213564,
+          213565,
+          213566,
+          213567,
+          213568,
+          213569,
+          213570,
+          213571,
+          213572,
+          213573,
+          213574,
+          213575,
+          213576,
+          213577,
+          213578,
+          213579,
+          213580,
+          213581,
+          213582,
+          213583,
+          213584,
+          213585,
+          213586,
+          213587,
+          213588,
+          213589,
+          213590,
+          213591,
+          213592,
+          213593,
+          213594,
+          213595,
+          213596,
+          213597,
+          213598,
+          213599,
+          213600,
+          213601,
+          213602,
+          213603,
+          213604,
+          213605,
+          213606,
+          213607,
+          213608,
+          213609,
+          215127,
+          215128,
+          215129,
+          214826,
+          215130,
+          214929,
+          215131,
+          215132,
+          215133,
+          215134,
+          215135,
+          215136,
+          215137,
+          215138,
+          215139,
+          215140,
+          215141,
+          215142,
+          215143,
+          214930,
+          215144,
+          215145,
+          215146,
+          215147,
+          215148,
+          215149,
+          215150,
+          215151,
+          215152,
+          215153,
+          215154,
+          215155,
+          215156,
+          219064,
+          219065,
+          220344,
+          215177,
+          219026,
+          219980,
+          221039,
+          221070,
+          221071,
+          221072,
+          221073,
+          221075,
+          221076,
+          221077,
+          221177,
+          221178,
+          221457,
+          221458,
+          221769,
+          221806,
+          221807,
+          221808,
+          221809,
+          221810,
+          221811,
+          221814,
+          237604,
+          237607,
+          237611,
+          237612,
+          237613,
+          237616,
+          237617,
+          237618,
+          238089,
+          238090,
+          238091,
+          238092,
+          239075,
+          239076,
+          239077,
+          239078,
+          239079,
+          239080,
+          239081,
+          239082,
+          239317,
+          240068,
+          240069,
+          240070,
+          240071,
+          240072,
+          240581,
+          240902,
+          240993,
+          243159,
+          243250,
+          243253,
+          244989,
+          244990,
+          244991,
+          244992,
+          244993,
+          244994,
+          246105,
+          274412,
+          276990,
+          276991,
+          276992,
+          276993,
+          276994,
+          278300,
+          278301,
+          278456,
+          278457,
+          278458,
+          280117,
+          325996,
+          325997,
+          325998,
+          325999,
+          326397,
+          326834,
+          326835,
+          326836,
+          326837,
+          326838,
+          328346,
+          328347,
+          328348,
+          328820,
+          328821
+        ],
+        "parentVids": [
+          213321
+        ]
+      }
+    ],
+    "values": [
+      {
+        "vid": 237607,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Acer saccharum",
+        "group": null
+      },
+      {
+        "vid": 237604,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Amber Pine (Resinous Pine Wood)",
+        "group": null
+      },
+      {
+        "vid": 237611,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Vitis",
+        "group": null
+      },
+      {
+        "vid": 237613,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Pinus elliottii",
+        "group": null
+      },
+      {
+        "vid": 237612,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Pinus massoniana",
+        "group": null
+      },
+      {
+        "vid": 237618,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Fraxinus americana",
+        "group": null
+      },
+      {
+        "vid": 237617,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Betula papyrifera",
+        "group": null
+      },
+      {
+        "vid": 237616,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Betula alleghaniensis",
+        "group": null
+      },
+      {
+        "vid": 215131,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Quercus alba",
+        "group": null
+      },
+      {
+        "vid": 215130,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Juglans mandshurica",
+        "group": null
+      },
+      {
+        "vid": 215128,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Cinnamomum spp.",
+        "group": null
+      },
+      {
+        "vid": 215135,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Hevea brasiliensis",
+        "group": null
+      },
+      {
+        "vid": 215133,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Juglans californica",
+        "group": null
+      },
+      {
+        "vid": 215132,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Quercus rubra",
+        "group": null
+      },
+      {
+        "vid": 215139,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Quercus robur",
+        "group": null
+      },
+      {
+        "vid": 215138,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Quercus alba",
+        "group": null
+      },
+      {
+        "vid": 215137,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Pterocarpus erinaceus",
+        "group": null
+      },
+      {
+        "vid": 215143,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Quercus mongolica",
+        "group": null
+      },
+      {
+        "vid": 215142,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Quercus crispula",
+        "group": null
+      },
+      {
+        "vid": 215141,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Quercus petraea",
+        "group": null
+      },
+      {
+        "vid": 215140,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Quercus rubra",
+        "group": null
+      },
+      {
+        "vid": 215146,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Synonyms",
+        "group": null
+      },
+      {
+        "vid": 215145,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Quercus velutina",
+        "group": null
+      },
+      {
+        "vid": 215144,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Quercus robur",
+        "group": null
+      },
+      {
+        "vid": 215151,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": " Acacia auriculiformis A. Cunn. ex Benth",
+        "group": null
+      },
+      {
+        "vid": 215150,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Mangifera indica",
+        "group": null
+      },
+      {
+        "vid": 215149,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Pinus radiata",
+        "group": null
+      },
+      {
+        "vid": 215148,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Juglans pitteursii hort. ex Lavallée",
+        "group": null
+      },
+      {
+        "vid": 328821,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Populus × canadensis Moench",
+        "group": null
+      },
+      {
+        "vid": 215155,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": " Lithocarpus dealbatus (J. D. Hooker et Thomson ex Miquel) Rehder",
+        "group": null
+      },
+      {
+        "vid": 328820,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Triplochiton scleroxylon",
+        "group": null
+      },
+      {
+        "vid": 215154,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": " Lithocarpus pasania C. C. Huang et Y. T. Chang",
+        "group": null
+      },
+      {
+        "vid": 215153,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": " Juglans regia Linn.",
+        "group": null
+      },
+      {
+        "vid": 215152,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Acacia confusa Merr.",
+        "group": null
+      },
+      {
+        "vid": 215156,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": " Ziziphus jujuba Mill. var. spinosa (Bunge) Hu ex H.F.Chow.",
+        "group": null
+      },
+      {
+        "vid": 215177,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Acer rubrum",
+        "group": null
+      },
+      {
+        "vid": 326836,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Paulownia fargesii",
+        "group": null
+      },
+      {
+        "vid": 326837,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Paulownia taiwaniana",
+        "group": null
+      },
+      {
+        "vid": 326838,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Paulownia tomentosa",
+        "group": null
+      },
+      {
+        "vid": 326834,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Paulownia catalpifolia",
+        "group": null
+      },
+      {
+        "vid": 326835,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Paulownia elongata",
+        "group": null
+      },
+      {
+        "vid": 220344,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Schima superba",
+        "group": null
+      },
+      {
+        "vid": 244991,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Larix kaempferi",
+        "group": null
+      },
+      {
+        "vid": 244990,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Larix principis-rupprechtii",
+        "group": null
+      },
+      {
+        "vid": 244989,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Larix gmelinii",
+        "group": null
+      },
+      {
+        "vid": 244994,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Betula platyphylla",
+        "group": null
+      },
+      {
+        "vid": 244993,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Acer saccharinum L.",
+        "group": null
+      },
+      {
+        "vid": 244992,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Larix decidua",
+        "group": null
+      },
+      {
+        "vid": 240902,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Acacia mangium",
+        "group": null
+      },
+      {
+        "vid": 221458,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Prunus persica",
+        "group": null
+      },
+      {
+        "vid": 221457,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Chaenomeles sinensis",
+        "group": null
+      },
+      {
+        "vid": 213326,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Amomum testaceum",
+        "group": null
+      },
+      {
+        "vid": 213324,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Pterocarpus dalbergioides",
+        "group": null
+      },
+      {
+        "vid": 213330,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Semiliquidambar cathayensis",
+        "group": null
+      },
+      {
+        "vid": 213328,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Millettia leucantha",
+        "group": null
+      },
+      {
+        "vid": 246105,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Thuja plicata",
+        "group": null
+      },
+      {
+        "vid": 213340,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Sinojackia xylocarpa",
+        "group": null
+      },
+      {
+        "vid": 213346,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Amoora dasyclada",
+        "group": null
+      },
+      {
+        "vid": 240993,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Fraxinus chinensis",
+        "group": null
+      },
+      {
+        "vid": 213348,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Aloe vera",
+        "group": null
+      },
+      {
+        "vid": 325996,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Paulownia fortunei",
+        "group": null
+      },
+      {
+        "vid": 325997,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Paulownia taiwaniana T. W. Hu & H. J. Chang",
+        "group": null
+      },
+      {
+        "vid": 325998,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Acacia melanoxylon",
+        "group": null
+      },
+      {
+        "vid": 213353,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Dipterocarpus grandiflorus",
+        "group": null
+      },
+      {
+        "vid": 325999,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "China fir",
+        "group": null
+      },
+      {
+        "vid": 213352,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Pterocarpus macrocarpus",
+        "group": null
+      },
+      {
+        "vid": 213359,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Cyrtomium hemionitis",
+        "group": null
+      },
+      {
+        "vid": 213360,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Metabriggsia ovalifolia",
+        "group": null
+      },
+      {
+        "vid": 213364,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Trailliaedoxa gracilis",
+        "group": null
+      },
+      {
+        "vid": 213370,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Elymus breviaristatus",
+        "group": null
+      },
+      {
+        "vid": 213373,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Tilia tuan",
+        "group": null
+      },
+      {
+        "vid": 213386,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Diospyros philippensis",
+        "group": null
+      },
+      {
+        "vid": 213385,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Millettia laurentii",
+        "group": null
+      },
+      {
+        "vid": 213388,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Dichocarpum hypoglaucum",
+        "group": null
+      },
+      {
+        "vid": 213405,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Nuphar bornetii",
+        "group": null
+      },
+      {
+        "vid": 213416,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Archangiopteris henryi",
+        "group": null
+      },
+      {
+        "vid": 213422,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Diospyros crassiflora",
+        "group": null
+      },
+      {
+        "vid": 213421,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Khaya ivorensis",
+        "group": null
+      },
+      {
+        "vid": 213428,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Pseudotsuga menziesii",
+        "group": null
+      },
+      {
+        "vid": 213433,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Ajaniopsis penicilliformis",
+        "group": null
+      },
+      {
+        "vid": 213443,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Betula jinpingensis",
+        "group": null
+      },
+      {
+        "vid": 213442,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Dipterocarpus cornutus",
+        "group": null
+      },
+      {
+        "vid": 240071,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Acer tataricum subsp. ginnala",
+        "group": null
+      },
+      {
+        "vid": 240070,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Acer buergerianum",
+        "group": null
+      },
+      {
+        "vid": 240069,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Acer truncatum",
+        "group": null
+      },
+      {
+        "vid": 240068,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Acer palmatum",
+        "group": null
+      },
+      {
+        "vid": 240072,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Acer negundo",
+        "group": null
+      },
+      {
+        "vid": 213448,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Zelkova schneideriana",
+        "group": null
+      },
+      {
+        "vid": 213456,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Rhoiptelea chiliantha",
+        "group": null
+      },
+      {
+        "vid": 243159,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Mahogany",
+        "group": null
+      },
+      {
+        "vid": 213461,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Diospyros pilosanthera",
+        "group": null
+      },
+      {
+        "vid": 213467,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Pterocarpus marsupium",
+        "group": null
+      },
+      {
+        "vid": 239075,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Pinus tabuliformis",
+        "group": null
+      },
+      {
+        "vid": 213475,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Fagus sylvatica",
+        "group": null
+      },
+      {
+        "vid": 213473,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Pterocarpus pedatus",
+        "group": null
+      },
+      {
+        "vid": 213472,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Najas pseudogracillima",
+        "group": null
+      },
+      {
+        "vid": 239079,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Pinus sylvestris",
+        "group": null
+      },
+      {
+        "vid": 239078,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Pinus palustris",
+        "group": null
+      },
+      {
+        "vid": 239077,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Pinus armandii",
+        "group": null
+      },
+      {
+        "vid": 213476,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Diospyros poncej",
+        "group": null
+      },
+      {
+        "vid": 239082,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Betula alnoides",
+        "group": null
+      },
+      {
+        "vid": 239081,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Betula albosinensis",
+        "group": null
+      },
+      {
+        "vid": 239080,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Acer mono",
+        "group": null
+      },
+      {
+        "vid": 213491,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Torreya nucifera",
+        "group": null
+      },
+      {
+        "vid": 213490,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Zenia insignis",
+        "group": null
+      },
+      {
+        "vid": 213494,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Myristica Fragrans",
+        "group": null
+      },
+      {
+        "vid": 276990,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Hevea brasiliensis",
+        "group": null
+      },
+      {
+        "vid": 276991,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Entandrophragma cylindricum",
+        "group": null
+      },
+      {
+        "vid": 213501,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Anisodus tanguticus",
+        "group": null
+      },
+      {
+        "vid": 213505,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Dipentodon sinicus",
+        "group": null
+      },
+      {
+        "vid": 213504,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Neocheiropteris palmatopedata",
+        "group": null
+      },
+      {
+        "vid": 276992,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Schima superba",
+        "group": null
+      },
+      {
+        "vid": 276993,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Quercus robur ",
+        "group": null
+      },
+      {
+        "vid": 276994,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Populus simonii",
+        "group": null
+      },
+      {
+        "vid": 238091,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Cedrus atlantica",
+        "group": null
+      },
+      {
+        "vid": 238090,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Cedrus libani",
+        "group": null
+      },
+      {
+        "vid": 238089,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Cedrus deodara",
+        "group": null
+      },
+      {
+        "vid": 213513,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Pennisetum sichuanense",
+        "group": null
+      },
+      {
+        "vid": 213512,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Larix mastersiana",
+        "group": null
+      },
+      {
+        "vid": 213519,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Acidosasa chinensis",
+        "group": null
+      },
+      {
+        "vid": 213517,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Diospyros celebica",
+        "group": null
+      },
+      {
+        "vid": 238092,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Cedrus brevifolia",
+        "group": null
+      },
+      {
+        "vid": 213521,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Dicksonia antarctica",
+        "group": null
+      },
+      {
+        "vid": 213526,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Larix chinensis",
+        "group": null
+      },
+      {
+        "vid": 213525,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Keteleeria davidiana var. formosana",
+        "group": null
+      },
+      {
+        "vid": 213531,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Cassia siamea",
+        "group": null
+      },
+      {
+        "vid": 213532,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Dipterocarpus conformis",
+        "group": null
+      },
+      {
+        "vid": 213541,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Camptotheca acuminata",
+        "group": null
+      },
+      {
+        "vid": 213545,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Amomum subulatum",
+        "group": null
+      },
+      {
+        "vid": 213544,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Amphicarpaea linearis",
+        "group": null
+      },
+      {
+        "vid": 213548,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Plectocomia microstachys",
+        "group": null
+      },
+      {
+        "vid": 280117,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Acer saccharum",
+        "group": null
+      },
+      {
+        "vid": 243250,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Pinus ponderosa Douglas ex C. Lawson",
+        "group": null
+      },
+      {
+        "vid": 243253,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Aucoumea klaineana",
+        "group": null
+      },
+      {
+        "vid": 213557,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Cistanche salsa",
+        "group": null
+      },
+      {
+        "vid": 213556,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Betula halophila",
+        "group": null
+      },
+      {
+        "vid": 213563,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Euphorbia pulcherrima",
+        "group": null
+      },
+      {
+        "vid": 213565,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Anisachne gracilis",
+        "group": null
+      },
+      {
+        "vid": 213564,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Mussaenda anomala",
+        "group": null
+      },
+      {
+        "vid": 213569,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Cinnamomum mairei",
+        "group": null
+      },
+      {
+        "vid": 213572,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Picea brachytyla var. complanata",
+        "group": null
+      },
+      {
+        "vid": 221769,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Umbrella Palm",
+        "group": null
+      },
+      {
+        "vid": 213576,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Sorolepidium glaciale",
+        "group": null
+      },
+      {
+        "vid": 213580,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Pterocarpus cambodianus",
+        "group": null
+      },
+      {
+        "vid": 213587,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Cinnamomum camphora",
+        "group": null
+      },
+      {
+        "vid": 213586,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Cinnamomum glanduliferum",
+        "group": null
+      },
+      {
+        "vid": 213590,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Changiostyrax dolichocarpa",
+        "group": null
+      },
+      {
+        "vid": 213598,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Sinopteris grevilleoides",
+        "group": null
+      },
+      {
+        "vid": 213601,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Erisma uncinatum",
+        "group": null
+      },
+      {
+        "vid": 213604,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Skapanthus oreophilus",
+        "group": null
+      },
+      {
+        "vid": 213609,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Chosenia arbutifolia",
+        "group": null
+      },
+      {
+        "vid": 213608,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Pterocarpus indicus",
+        "group": null
+      },
+      {
+        "vid": 221807,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Elaeis guineensis",
+        "group": null
+      },
+      {
+        "vid": 221806,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Daemonorops",
+        "group": null
+      },
+      {
+        "vid": 221810,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "African Goldenwood",
+        "group": null
+      },
+      {
+        "vid": 221809,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Chinese Fringe Tree",
+        "group": null
+      },
+      {
+        "vid": 221808,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Verawood",
+        "group": null
+      },
+      {
+        "vid": 221814,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Purple sandalwood",
+        "group": null
+      },
+      {
+        "vid": 328348,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Thuja plicata Donn ex D. Don",
+        "group": null
+      },
+      {
+        "vid": 328347,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Eucalyptus grandis W. Hill ex Maiden",
+        "group": null
+      },
+      {
+        "vid": 328346,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Eucalyptus globulus Labill.",
+        "group": null
+      },
+      {
+        "vid": 239317,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Boxwood",
+        "group": null
+      },
+      {
+        "vid": 326397,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Acer saccharinum",
+        "group": null
+      },
+      {
+        "vid": 278300,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Rhododendron simsii",
+        "group": null
+      },
+      {
+        "vid": 278301,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Salix babylonica",
+        "group": null
+      },
+      {
+        "vid": 214826,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Cunninghamia lanceolata (Lamb.) Hook.",
+        "group": null
+      },
+      {
+        "vid": 219980,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Pterocarpus santalinus",
+        "group": null
+      },
+      {
+        "vid": 221039,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Pinus Sylvestris",
+        "group": null
+      },
+      {
+        "vid": 221071,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Baeckeafrutescens",
+        "group": null
+      },
+      {
+        "vid": 221070,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Camelliasinensis",
+        "group": null
+      },
+      {
+        "vid": 221075,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Castanea",
+        "group": null
+      },
+      {
+        "vid": 219026,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Populus alba",
+        "group": null
+      },
+      {
+        "vid": 214930,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": " Quercus mongolica Fischer ex Ledebour",
+        "group": null
+      },
+      {
+        "vid": 221073,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Corylusheterophylla",
+        "group": null
+      },
+      {
+        "vid": 221072,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Abeliabiflora",
+        "group": null
+      },
+      {
+        "vid": 221077,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Zanthoxylum",
+        "group": null
+      },
+      {
+        "vid": 221076,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Malus",
+        "group": null
+      },
+      {
+        "vid": 219065,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": " Nauclea officinalis (Pirre ex Pitard) Merr.",
+        "group": null
+      },
+      {
+        "vid": 219064,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": " Tectona grandis Linn. f.",
+        "group": null
+      },
+      {
+        "vid": 278456,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Salix matsudana Koidz",
+        "group": null
+      },
+      {
+        "vid": 278457,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Corylus heterophylla",
+        "group": null
+      },
+      {
+        "vid": 278458,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Prunus serotina",
+        "group": null
+      },
+      {
+        "vid": 240581,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Euonymus japonicus",
+        "group": null
+      },
+      {
+        "vid": 274412,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Acacia confusa Merr.",
+        "group": null
+      },
+      {
+        "vid": 221178,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Entandrophragma cylindricum",
+        "group": null
+      },
+      {
+        "vid": 221177,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          213321
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "Pinus radiata",
+        "group": null
+      }
+    ],
+    "referenceType": null,
+    "pid": 2231,
+    "templatePid": 1416327,
+    "required": false,
+    "propertyValueType": 0,
+    "minValue": "",
+    "feature": 0,
+    "valueRule": 0,
+    "propertyChooseTitle": null,
+    "showType": 1,
+    "parentTemplatePid": 1416051,
+    "mainSale": null,
+    "templateModuleId": 232654,
+    "parentSpecId": null,
+    "maxValue": "",
+    "chooseMaxNum": 1,
+    "showCondition": null,
+    "valuePrecision": 0,
+    "controlType": 1,
+    "valueUnitList": null,
+    "name": "Wood Species",
+    "isSale": false,
+    "refPid": 7318,
+    "value": "",
+    "vid": null,
+    "valueUnitId": "",
+    "valueUnit": ""
+  },
+  {
+    "numberInputTitle": null,
+    "templatePropertyValueParentList": [
+      {
+        "vids": [
+          202364,
+          202365,
+          202366,
+          202367,
+          202368,
+          202369,
+          202370,
+          202371,
+          202372,
+          202373,
+          202374
+        ],
+        "parentVids": [
+          2171
+        ]
+      }
+    ],
+    "values": [
+      {
+        "vid": 202371,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          2171
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "408 Stainless Steel",
+        "group": null
+      },
+      {
+        "vid": 202370,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          2171
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "403 Stainless Steel",
+        "group": null
+      },
+      {
+        "vid": 202369,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          2171
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "316 Stainless Steel",
+        "group": null
+      },
+      {
+        "vid": 202368,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          2171
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "304 Stainless Steel",
+        "group": null
+      },
+      {
+        "vid": 202374,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          2171
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "420 Stainless Steel",
+        "group": null
+      },
+      {
+        "vid": 202373,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          2171
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "430 Stainless Steel",
+        "group": null
+      },
+      {
+        "vid": 202372,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          2171
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "410 Stainless Steel",
+        "group": null
+      },
+      {
+        "vid": 202367,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          2171
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "301 Stainless Steel",
+        "group": null
+      },
+      {
+        "vid": 202366,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          2171
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "210 Stainless Steel",
+        "group": null
+      },
+      {
+        "vid": 202365,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          2171
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "202 Stainless Steel",
+        "group": null
+      },
+      {
+        "vid": 202364,
+        "specId": null,
+        "subGroup": null,
+        "parentVids": [
+          2171
+        ],
+        "brandId": null,
+        "additionalInfo": null,
+        "extendInfo": null,
+        "value": "201 Stainless Steel",
+        "group": null
+      }
+    ],
+    "referenceType": null,
+    "pid": 2138,
+    "templatePid": 1482170,
+    "required": false,
+    "propertyValueType": 0,
+    "minValue": "",
+    "feature": 0,
+    "valueRule": 0,
+    "propertyChooseTitle": null,
+    "showType": 1,
+    "parentTemplatePid": 1003245,
+    "mainSale": null,
+    "templateModuleId": 232654,
+    "parentSpecId": null,
+    "maxValue": "",
+    "chooseMaxNum": 1,
+    "showCondition": null,
+    "valuePrecision": 0,
+    "controlType": 1,
+    "valueUnitList": null,
+    "name": "Stainless Steel Grade",
+    "isSale": false,
+    "refPid": 7085,
+    "value": "",
+    "vid": null,
+    "valueUnitId": "",
+    "valueUnit": ""
+  }
+]

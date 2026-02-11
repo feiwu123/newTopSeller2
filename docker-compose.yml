@@ -1,0 +1,15 @@
+services:
+  seller:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      network: host
+    environment:
+      TOPM_API_ROOT: ${TOPM_API_ROOT:-https://topm.tech/sellernew/api}
+      TOPM_BASE_URL: ${TOPM_BASE_URL:-https://topm.tech}
+      TOPM_CONNECT_TIMEOUT: ${TOPM_CONNECT_TIMEOUT:-5}
+      TOPM_READ_TIMEOUT: ${TOPM_READ_TIMEOUT:-60}
+      CORS_ORIGINS: ${CORS_ORIGINS:-*}
+    ports:
+      - "${SELLER_HTTP_PORT:-6209}:6209"
+    restart: unless-stopped

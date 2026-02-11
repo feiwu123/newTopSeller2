@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>商家登录 - TopM</title>
+    <link rel="stylesheet" href="./styles/app.css" />
+  </head>
+  <body data-page="login">
+    <main class="container">
+      <section class="card" aria-label="login">
+        <div class="top-row">
+          <div class="brand">
+            <div class="brand-badge">T</div>
+            <div>
+              <div class="brand-title">TOPM Merchant</div>
+              <div class="subtitle">商家后台登录</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="login-error" class="error" role="alert"></div>
+
+        <form id="login-form">
+          <div>
+            <label for="login-user">账号</label>
+            <input
+              id="login-user"
+              name="user"
+              type="text"
+              required
+              autocomplete="username"
+              placeholder="请输入商家账号"
+            />
+          </div>
+          <div>
+            <label for="login-pass">密码</label>
+            <input
+              id="login-pass"
+              name="pass"
+              type="password"
+              required
+              autocomplete="current-password"
+              placeholder="请输入密码"
+            />
+          </div>
+          <div class="checkbox-row">
+            <input id="login-remember" type="checkbox" />
+            <label for="login-remember">记住密码</label>
+          </div>
+          <button id="login-submit" class="btn" type="submit">登录</button>
+        </form>
+
+        <p class="hint">如需重置密码或开通账号，请联系管理员。</p>
+      </section>
+    </main>
+    <script type="module" src="./app.js?v=2026-01-09-1"></script>
+  </body>
+</html>
