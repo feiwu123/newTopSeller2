@@ -15,7 +15,7 @@ PORT_MAPPING="${PORT_MAPPING:-6209:6209}"
 # 1) TOPM_API_ROOT / TOPM_BASE_URL (direct runtime vars)
 # 2) ENV_TOPM_API_ROOT / ENV_TOPM_BASE_URL (legacy script vars)
 # 3) hardcoded defaults
-ENV_TOPM_API_ROOT="${TOPM_API_ROOT:-${ENV_TOPM_API_ROOT:-https://topm.tech/sellernew/api}}"
+ENV_TOPM_API_ROOT="${TOPM_API_ROOT:-${ENV_TOPM_API_ROOT:-https://topm.tech/api}}"
 ENV_TOPM_BASE_URL="${TOPM_BASE_URL:-${ENV_TOPM_BASE_URL:-https://topm.tech}}"
 ENV_TOPM_CONNECT_TIMEOUT="${ENV_TOPM_CONNECT_TIMEOUT:-5}"
 ENV_TOPM_READ_TIMEOUT="${ENV_TOPM_READ_TIMEOUT:-60}"
