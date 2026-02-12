@@ -4912,6 +4912,7 @@ export function setupTikTok() {
         setPre(createPre, { code: "1", msg: "请选择品牌" });
         return;
       }
+      const brandName = brandId;
       syncGoodsDescField();
       const goodsDescHtml = sanitizeGoodsDesc(goodsDescField?.value ?? "");
       const goodsDescPayload = getGoodsDescText() ? goodsDescHtml : "";
@@ -4929,7 +4930,7 @@ export function setupTikTok() {
         goods_sn: document.getElementById("tiktok-goods-sn")?.value?.trim(),
         ali_seller_sn: document.getElementById("tiktok-ali-seller-sn")?.value?.trim(),
         cat_id: catId,
-        brand_id: brandId,
+        brandName,
         tiktok_brand_id: brandId,
         goods_brief: document.getElementById("tiktok-goods-brief")?.value?.trim(),
         goods_desc: goodsDescPayload,
@@ -5049,7 +5050,7 @@ export function setupTikTok() {
         "goods_name",
         "goods_sn",
         "cat_id",
-        "brand_id",
+        "brandName",
         "goods_brief",
         "goods_desc",
         "weight",
