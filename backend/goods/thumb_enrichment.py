@@ -43,6 +43,21 @@ def _int_env(name: str, default: int) -> int:
         return default
 
 
+def _bool_env(name: str, default: bool) -> bool:
+    raw = (os.getenv(name, "") or "").strip().lower()
+    if not raw:
+        return default
+    return raw in {"1", "true", "yes", "y", "on"}
+
+
+def _timeout_attempts(connect_timeout: float, read_timeout: float) -> list[tuple[float, float]]:
+    attempts = [(connect_timeout, read_timeout)]
+    # Some networks need a longer handshake time for upstream.
+    if connect_timeout < 20.0:
+        attempts.append((20.0, read_timeout))
+    return attempts
+
+
 class _MetaImgParser(HTMLParser):
     def __init__(self) -> None:
         super().__init__()
@@ -145,19 +160,38 @@ def fetch_thumb_for_detail_url(detail_url: str, session: requests.Session | None
     read_timeout = _float_env("TOPM_READ_TIMEOUT", 60.0)
 
     sess = session or requests.Session()
-    sess.trust_env = False
-    try:
-        resp = sess.get(
-            detail_url,
-            headers={
-                "User-Agent": "seller-module/1.0 (+thumb-enrichment)",
-                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-            },
-            timeout=(connect_timeout, read_timeout),
-        )
-        resp.raise_for_status()
-    except requests.RequestException as exc:
-        logger.warning("tiktok thumb fetch failed url=%s err=%s", detail_url, exc)
+    sess.trust_env = _bool_env("TOPM_TRUST_ENV", True)
+    resp: requests.Response | None = None
+    attempts = _timeout_attempts(connect_timeout, read_timeout)
+    total_attempts = len(attempts)
+    for idx, (ct, rt) in enumerate(attempts, start=1):
+        try:
+            resp = sess.get(
+                detail_url,
+                headers={
+                    "User-Agent": "seller-module/1.0 (+thumb-enrichment)",
+                    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                },
+                timeout=(ct, rt),
+            )
+            resp.raise_for_status()
+            break
+        except requests.ConnectTimeout as exc:
+            logger.warning(
+                "tiktok thumb fetch connect timeout url=%s attempt=%s ct=%.1fs err=%s",
+                detail_url,
+                idx,
+                ct,
+                exc,
+            )
+            if idx >= total_attempts:
+                return None
+        except requests.RequestException as exc:
+            logger.warning("tiktok thumb fetch failed url=%s attempt=%s err=%s", detail_url, idx, exc)
+            if idx >= total_attempts:
+                return None
+
+    if resp is None:
         return None
 
     thumb = extract_primary_image_url(resp.text, base_url=detail_url)
@@ -181,7 +215,11 @@ def _is_placeholder_thumb(value: str) -> bool:
     return "no_picture" in v or v.endswith("/images/no_picture.gif") or v.endswith("images/no_picture.gif")
 
 
-def fetch_thumb_from_goods_info(goods_id: str | int, session: requests.Session | None = None) -> str | None:
+def fetch_thumb_from_goods_info(
+    goods_id: str | int,
+    session: requests.Session | None = None,
+    detail_url: str | None = None,
+) -> str | None:
     """
     Fetch thumb via home-module endpoint: POST {TOPM_BASE_URL}/new/api/goods/info
     This endpoint returns a `pictures` array with `img_url` for TikTok goods.
@@ -200,22 +238,44 @@ def fetch_thumb_from_goods_info(goods_id: str | int, session: requests.Session |
     api_url = f"{_new_api_base()}/goods/info"
 
     sess = session or requests.Session()
-    sess.trust_env = False
-    try:
-        resp = sess.post(
-            api_url,
-            data={"goods_id": gid},
-            headers={
-                "User-Agent": "seller-module/1.0 (+thumb-enrichment)",
-                "Accept": "application/json, text/plain, */*",
-            },
-            timeout=(connect_timeout, read_timeout),
-        )
-        resp.raise_for_status()
-        data = resp.json()
-    except requests.RequestException as exc:
-        logger.warning("tiktok goods/info fetch failed goods_id=%s err=%s", gid, exc)
+    sess.trust_env = _bool_env("TOPM_TRUST_ENV", True)
+
+    resp: requests.Response | None = None
+    attempts = _timeout_attempts(connect_timeout, read_timeout)
+    total_attempts = len(attempts)
+    for idx, (ct, rt) in enumerate(attempts, start=1):
+        try:
+            resp = sess.post(
+                api_url,
+                data={"goods_id": gid},
+                headers={
+                    "User-Agent": "seller-module/1.0 (+thumb-enrichment)",
+                    "Accept": "application/json, text/plain, */*",
+                },
+                timeout=(ct, rt),
+            )
+            resp.raise_for_status()
+            break
+        except requests.ConnectTimeout as exc:
+            logger.warning(
+                "tiktok goods/info connect timeout goods_id=%s attempt=%s ct=%.1fs err=%s",
+                gid,
+                idx,
+                ct,
+                exc,
+            )
+            if idx >= total_attempts:
+                return None
+        except requests.RequestException as exc:
+            logger.warning("tiktok goods/info fetch failed goods_id=%s attempt=%s err=%s", gid, idx, exc)
+            if idx >= total_attempts:
+                return None
+
+    if resp is None:
         return None
+
+    try:
+        data = resp.json()
     except ValueError:
         logger.warning("tiktok goods/info returned non-json goods_id=%s", gid)
         return None
@@ -235,6 +295,10 @@ def fetch_thumb_from_goods_info(goods_id: str | int, session: requests.Session |
         url = urljoin(_new_api_base(), thumb)
         _set_cached(cache_key, url)
         return url
+
+    if detail_url:
+        # Fallback: if goods/info has no usable image, try detail page extraction.
+        return fetch_thumb_for_detail_url(str(detail_url), session=sess)
 
     return None
 
@@ -271,10 +335,11 @@ def enrich_tiktok_goods_list(goods_list: List[dict]) -> None:
     max_workers = min(max_workers, len(targets))
 
     with requests.Session() as sess, ThreadPoolExecutor(max_workers=max_workers) as ex:
+        sess.trust_env = _bool_env("TOPM_TRUST_ENV", True)
         futs = {}
         for idx, gid, url in targets:
             if gid:
-                futs[ex.submit(fetch_thumb_from_goods_info, gid, sess)] = (idx, "gid", gid)
+                futs[ex.submit(fetch_thumb_from_goods_info, gid, sess, url)] = (idx, "gid", gid)
             elif url:
                 futs[ex.submit(fetch_thumb_for_detail_url, url, sess)] = (idx, "url", url)
         for fut in as_completed(futs):

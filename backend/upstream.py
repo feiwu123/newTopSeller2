@@ -43,9 +43,16 @@ def _encode_form_payload(payload: Dict[str, Any]) -> Dict[str, str]:
     return encoded
 
 
+def _bool_env(name: str, default: bool) -> bool:
+    raw = (os.getenv(name, "") or "").strip().lower()
+    if not raw:
+        return default
+    return raw in {"1", "true", "yes", "y", "on"}
+
+
 _SESSION = requests.Session()
-# Some environments set HTTP(S)_PROXY/ALL_PROXY to a dummy local port; avoid inheriting that.
-_SESSION.trust_env = False
+# Default to trusting system proxy settings; can be disabled via TOPM_TRUST_ENV=0.
+_SESSION.trust_env = _bool_env("TOPM_TRUST_ENV", True)
 
 
 def _response_json(resp: requests.Response) -> Optional[Dict[str, Any]]:

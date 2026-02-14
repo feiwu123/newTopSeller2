@@ -4,35 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>商家后台 - TopM</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./styles/tailwind.generated.css" />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      href="./vendor/fontawesome/css/all.min.css"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      href="./vendor/inter/inter.css"
       rel="stylesheet"
     />
-
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              primary: "rgb(var(--topm-primary) / <alpha-value>)",
-              accent: "rgb(var(--topm-accent) / <alpha-value>)",
-              secondary: "rgb(var(--topm-secondary) / <alpha-value>)",
-              bglight: "rgb(var(--topm-bglight) / <alpha-value>)",
-            },
-            fontFamily: { sans: ["Inter", "system-ui", "sans-serif"] },
-            boxShadow: {
-              soft: "0 4px 20px -2px rgba(0, 0, 0, 0.05)",
-              glow: "0 0 15px rgb(var(--topm-accent) / 0.15)",
-            },
-          },
-        },
-      };
-    </script>
     <style>
       :root {
         --topm-primary: 15 23 42;
@@ -2015,7 +1995,7 @@
                   <div class="text-[11px] text-slate-400">&#x6682;&#x65E0;&#x56FE;&#x7247;&#xFF08;&#x4E0A;&#x4F20;&#x540E;&#x4F1A;&#x81EA;&#x52A8;&#x51FA;&#x73B0;&#x9884;&#x89C8;&#xFF09;</div>
                 </div>
                 <div id="tiktok-certifications-block" class="space-y-3"></div>
-                <input id="tiktok-cert-file" type="file" accept="image/*" class="hidden" />
+                <input id="tiktok-cert-file" type="file" accept="application/pdf,.pdf" class="hidden" />
               </div>
 
               <div class="space-y-2">

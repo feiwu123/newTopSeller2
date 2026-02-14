@@ -4,30 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>商品明细 - TopM</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./styles/tailwind.generated.css" />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      href="./vendor/fontawesome/css/all.min.css"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      href="./vendor/inter/inter.css"
       rel="stylesheet"
     />
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              primary: "rgb(var(--topm-primary) / <alpha-value>)",
-              accent: "rgb(var(--topm-accent) / <alpha-value>)",
-              secondary: "rgb(var(--topm-secondary) / <alpha-value>)",
-              bglight: "rgb(var(--topm-bglight) / <alpha-value>)",
-            },
-            fontFamily: { sans: ["Inter", "system-ui", "sans-serif"] },
-          },
-        },
-      };
-    </script>
     <style>
       :root {
         --topm-primary: 15 23 42;

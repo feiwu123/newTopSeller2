@@ -1,10 +1,22 @@
 import os
+import logging
 from typing import Any, Dict, Tuple
 
 import requests
 from flask import Blueprint, jsonify, request
 
 token_bp = Blueprint("token", __name__)
+logger = logging.getLogger(__name__)
+
+
+def _float_env(name: str, default: float) -> float:
+    raw = (os.getenv(name, "") or "").strip()
+    if not raw:
+        return default
+    try:
+        return float(raw)
+    except ValueError:
+        return default
 
 
 def _extract_credentials() -> Tuple[str, str]:
@@ -37,16 +49,43 @@ def login():
         )
 
     url = _upstream_token_url()
+    connect_timeout = _float_env("TOPM_CONNECT_TIMEOUT", 5.0)
+    read_timeout = _float_env("TOPM_READ_TIMEOUT", 60.0)
+    attempts = [(connect_timeout, read_timeout)]
+    # Some regions need a longer TCP/TLS handshake to topm.tech.
+    if connect_timeout < 20.0:
+        attempts.append((20.0, read_timeout))
+
+    resp = None
+    last_exc: requests.RequestException | None = None
     try:
-        resp = requests.post(
-            url,
-            data={"user": user, "pass": password},
-            timeout=(5, 20),
-            proxies={"http": None, "https": None},
-        )
+        for idx, (ct, rt) in enumerate(attempts, start=1):
+            try:
+                resp = requests.post(
+                    url,
+                    data={"user": user, "pass": password},
+                    timeout=(ct, rt),
+                )
+                break
+            except requests.ConnectTimeout as exc:
+                last_exc = exc
+                logger.warning("login upstream connect timeout (attempt=%s ct=%.1fs): %s", idx, ct, exc)
+                if idx >= len(attempts):
+                    raise
+            except requests.RequestException as exc:
+                last_exc = exc
+                logger.warning("login upstream request failed (attempt=%s): %s", idx, exc)
+                if idx >= len(attempts):
+                    raise
     except requests.RequestException:
         return (
-            jsonify({"code": "1", "msg": "upstream request failed", "data": {}}),
+            jsonify(
+                {
+                    "code": "1",
+                    "msg": "upstream request failed",
+                    "data": {"error": str(last_exc)[:300]} if last_exc else {},
+                }
+            ),
             200,
         )
 
