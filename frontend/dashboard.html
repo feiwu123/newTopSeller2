@@ -1995,7 +1995,13 @@
                   <div class="text-[11px] text-slate-400">&#x6682;&#x65E0;&#x56FE;&#x7247;&#xFF08;&#x4E0A;&#x4F20;&#x540E;&#x4F1A;&#x81EA;&#x52A8;&#x51FA;&#x73B0;&#x9884;&#x89C8;&#xFF09;</div>
                 </div>
                 <div id="tiktok-certifications-block" class="space-y-3"></div>
-                <input id="tiktok-cert-file" type="file" accept="application/pdf,.pdf" class="hidden" />
+                <input
+                  id="tiktok-cert-file"
+                  type="file"
+                  accept=".jpg,.png,.gif,.jpeg,.pdf,image/jpeg,image/png,image/gif,application/pdf"
+                  class="hidden"
+                />
+                <input id="tiktok-sales-attr-image-file" type="file" accept="image/*" class="hidden" />
               </div>
 
               <div class="space-y-2">
@@ -3459,16 +3465,6 @@
               <div class="text-[11px] font-semibold text-slate-600">价格 <span class="text-rose-600">*</span></div>
               <input data-sku-modal-field="product_price" class="px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white" />
             </div>
-          </div>
-          <div class="space-y-2">
-            <div class="flex items-center justify-between gap-2 text-[11px] text-slate-600">
-              <span>属性图（最多 10 张）</span>
-              <button id="tiktok-sku-modal-upload" type="button" class="px-3 py-1.5 rounded-xl bg-slate-900 text-white text-[11px] font-semibold hover:bg-slate-800">
-                上传图片
-              </button>
-              <input id="tiktok-sku-modal-file" type="file" accept="image/*" multiple class="hidden" />
-            </div>
-            <div id="tiktok-sku-modal-images" class="flex flex-wrap gap-2"></div>
           </div>
         </div>
       </div>
