@@ -136,6 +136,26 @@ export function setupShein() {
   let sheinImageBuckets = new Map();
   let sheinSupplyRows = new Map();
   let editingSheinGoodsId = "";
+  let editingSheinProductIds = [];
+  let sheinCatCheckSeq = 0;
+  let sheinApplyingEditData = false;
+  let sheinSubmitJumpTimer = null;
+
+  const syncCreateBtnLabel = () => {
+    if (!createBtn) return;
+    const isEditing = Boolean(String(editingSheinGoodsId || "").trim());
+    createBtn.innerHTML = `<i class="fas fa-paper-plane mr-1"></i>${isEditing ? "更新并上传" : "提交"}`;
+  };
+
+  const clearSheinSubmitJumpTimer = () => {
+    if (!sheinSubmitJumpTimer) return;
+    try {
+      window.clearTimeout(sheinSubmitJumpTimer);
+    } catch {
+      // ignore
+    }
+    sheinSubmitJumpTimer = null;
+  };
 
   const setSummary = (t) => {
     if (!summary) return;
@@ -148,9 +168,28 @@ export function setupShein() {
     if (next) next.disabled = page >= pages;
   };
 
+  const getLastSelectedCatId = () => {
+    const raw = String(catOut?.dataset?.catIds || "").trim();
+    if (!raw) return "";
+    try {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length) {
+        return String(parsed[parsed.length - 1] ?? "").trim();
+      }
+    } catch {
+      // ignore
+    }
+    return "";
+  };
+
   const getCatId = () => {
-    const v = String(catOut?.dataset?.catLeafId || catOut?.textContent || "").trim();
-    return v && v !== "-" ? v : "";
+    const leafId = String(catOut?.dataset?.catLeafId || catOut?.textContent || "").trim();
+    if (leafId && leafId !== "-") return leafId;
+    const fallback = getLastSelectedCatId();
+    if (!fallback || fallback === "-") return "";
+    if (editingSheinGoodsId) return fallback;
+    const typeId = getTypeId();
+    return typeId ? fallback : "";
   };
 
   const getTypeId = () => {
@@ -169,6 +208,34 @@ export function setupShein() {
     templatePre.classList.add("hidden");
     templatePre.textContent = "";
   }
+
+  const maybeExpandEditStepsByLeafCategory = async (catId) => {
+    const id = String(catId ?? "").trim();
+    if (!id || !editingSheinGoodsId) return;
+    const seq = ++sheinCatCheckSeq;
+    const apply = (childCount) => {
+      if (seq !== sheinCatCheckSeq) return;
+      if (!editingSheinGoodsId) return;
+      if (String(getCatId() || "").trim() !== id) return;
+      if (Number(childCount) !== 0) return;
+      openAllSteps();
+      renderImagePreview();
+    };
+    try {
+      const res = await postAuthedJson("/api/shein/get_select_category_pro", { cat_id: id });
+      if (String(res?.code) === "2") {
+        clearAuth();
+        window.location.href = "./login.html";
+        return;
+      }
+      if (String(res?.code) !== "0") return;
+      const list = Array.isArray(res?.data?.list) ? res.data.list : [];
+      const childCount = list.length;
+      apply(childCount);
+    } catch {
+      // ignore
+    }
+  };
 
   const parseJsonMaybe = (raw) => {
     const v = String(raw ?? "").trim();
@@ -219,6 +286,12 @@ export function setupShein() {
         .filter(Boolean);
     }
     return [];
+  };
+  const normalizeAttrId = (raw) => {
+    let id = String(raw ?? "").trim();
+    if (!id) return "";
+    if (/^\d+\.0+$/.test(id)) id = id.replace(/\.0+$/, "");
+    return id;
   };
   const pickCatName = (item) =>
     item?.cat_name ?? item?.cate_name ?? item?.category_name ?? item?.name ?? item?.label ?? item?.title;
@@ -405,6 +478,34 @@ export function setupShein() {
       .filter((opt) => opt.label);
   };
 
+  const getCustomAttrNameOptions = (attr) => {
+    const list = Array.isArray(attr?.attribute_value_info_list) ? attr.attribute_value_info_list : [];
+    const map = new Map();
+    list.forEach((item) => {
+      const rawId =
+        item?.attribute_value_id ??
+        item?.value_id ??
+        item?.id ??
+        item?.valueId ??
+        item?.attributeValueId ??
+        "";
+      const rawLabel =
+        item?.attribute_value ??
+        item?.attribute_value_name ??
+        item?.value ??
+        item?.value_name ??
+        item?.name ??
+        item?.label ??
+        item?.title ??
+        rawId;
+      const id = String(rawId ?? rawLabel ?? "").trim();
+      const label = String(rawLabel ?? rawId ?? "").trim();
+      if (!id || !label) return;
+      if (!map.has(id)) map.set(id, { id, label });
+    });
+    return Array.from(map.values());
+  };
+
   const getSpecValueOptions = (attr) => {
     const list = Array.isArray(attr?.attribute_value_info_list) ? attr.attribute_value_info_list : [];
     return list
@@ -444,6 +545,250 @@ export function setupShein() {
       .filter(Boolean);
   };
 
+  const extractSheinGoodsAttrIds = (raw) => {
+    const ids = [];
+    const push = (input) => {
+      if (input == null) return;
+      if (Array.isArray(input)) {
+        input.forEach((item) => push(item));
+        return;
+      }
+      if (typeof input === "object") {
+        Object.values(input).forEach((item) => push(item));
+        return;
+      }
+      const text = String(input ?? "").trim();
+      if (!text) return;
+      const parsed = parseMaybeJson(text);
+      if (parsed !== text) {
+        const isComposite = Array.isArray(parsed) || (parsed && typeof parsed === "object");
+        if (isComposite) {
+          push(parsed);
+          return;
+        }
+        if (typeof parsed === "string") {
+          push(parsed);
+          return;
+        }
+      }
+      text
+        .split(/[|,]/)
+        .map((part) => normalizeAttrId(part))
+        .filter(Boolean)
+        .forEach((id) => ids.push(id));
+    };
+    push(raw);
+    return Array.from(new Set(ids));
+  };
+
+  const getSkuSheinGoodsAttrRaw = (sku) =>
+    sku?.shein_goods_attr ??
+    sku?.sheinGoodsAttr ??
+    sku?.goods_attr ??
+    sku?.goodsAttr ??
+    sku?.shein_goods_attrs ??
+    "";
+
+  const buildSpecValueMapsById = () => {
+    const mainIdMap = new Map();
+    const otherIdMap = new Map();
+    const fillMap = (list, map) => {
+      (Array.isArray(list) ? list : []).forEach((spec) => {
+        const specName = String(spec?.name ?? "").trim();
+        if (!specName) return;
+        (Array.isArray(spec?.values) ? spec.values : []).forEach((opt) => {
+          const id = normalizeAttrId(opt?.id);
+          const value = String(opt?.label ?? "").trim();
+          if (!id || !value) return;
+          map.set(id, { name: specName, value });
+        });
+      });
+    };
+    fillMap(sheinSpecMainList, mainIdMap);
+    fillMap(sheinSpecOtherList, otherIdMap);
+    return {
+      mainIdMap,
+      otherIdMap,
+    };
+  };
+
+  const buildSpecValueMapsFromDefines = (specDefines) => {
+    const list = Array.isArray(specDefines) ? specDefines : [];
+    const mainIdMap = new Map();
+    const otherIdMap = new Map();
+    list.forEach((item, idx) => {
+      const row = item && typeof item === "object" ? item : {};
+      const name = String(row?.type_name ?? row?.attribute_name ?? row?.type_id ?? row?.attribute_id ?? "").trim();
+      if (!name) return;
+      const ids = Array.isArray(row?.spec_value_ids) ? row.spec_value_ids : [];
+      const vals = Array.isArray(row?.spec_value_vals) ? row.spec_value_vals : [];
+      ids.forEach((rawId, valueIdx) => {
+        const id = normalizeAttrId(rawId);
+        if (!id) return;
+        const value = String(vals[valueIdx] ?? "").trim() || id;
+        const hit = { name, value };
+        if (idx === 0) {
+          if (!mainIdMap.has(id)) mainIdMap.set(id, hit);
+        } else if (!otherIdMap.has(id)) {
+          otherIdMap.set(id, hit);
+        }
+      });
+    });
+    return { mainIdMap, otherIdMap };
+  };
+
+  const mergeSpecValueMaps = (primaryMap, fallbackMap) => {
+    const next = new Map(primaryMap instanceof Map ? Array.from(primaryMap.entries()) : []);
+    if (fallbackMap instanceof Map) {
+      fallbackMap.forEach((value, key) => {
+        if (!next.has(key)) next.set(key, value);
+      });
+    }
+    return next;
+  };
+
+  const buildSpecRowsFromSpecDefines = (specDefines) => {
+    const list = Array.isArray(specDefines) ? specDefines : [];
+    const toRows = (item, fallbackName) => {
+      const row = item && typeof item === "object" ? item : {};
+      const name = String(row?.type_name ?? row?.attribute_name ?? row?.type_id ?? fallbackName ?? "").trim();
+      if (!name) return [];
+      const values = Array.isArray(row?.spec_value_vals) ? row.spec_value_vals : [];
+      const seen = new Set();
+      return values
+        .map((v) => String(v ?? "").trim())
+        .filter((value) => {
+          if (!value || seen.has(value)) return false;
+          seen.add(value);
+          return true;
+        })
+        .map((value) => ({ name, value }));
+    };
+    return {
+      mainRows: toRows(list[0], "主规格"),
+      otherRows: list.length > 1 ? list.slice(1).flatMap((item) => toRows(item, "次规格")) : [],
+    };
+  };
+
+  const resolveSpecsFromIds = (ids, mainMap, otherMap) => {
+    const mainIdMap = mainMap instanceof Map ? mainMap : new Map();
+    const otherIdMap = otherMap instanceof Map ? otherMap : new Map();
+    const seen = new Set();
+    const rows = [];
+    const push = (hit) => {
+      const name = String(hit?.name ?? "").trim();
+      const value = String(hit?.value ?? "").trim();
+      if (!name || !value) return;
+      const key = `${name}::${value}`;
+      if (seen.has(key)) return;
+      seen.add(key);
+      rows.push({ name, value });
+    };
+    const normalizedIds = (Array.isArray(ids) ? ids : [])
+      .map((rawId) => normalizeAttrId(rawId))
+      .filter(Boolean);
+    if (!normalizedIds.length) return rows;
+    // Edit rule: when only one attr id exists, treat it as main-spec value id first.
+    if (normalizedIds.length === 1) {
+      const onlyId = normalizedIds[0];
+      const main = mainIdMap.get(onlyId);
+      if (main) {
+        push(main);
+        return rows;
+      }
+      const other = otherIdMap.get(onlyId);
+      if (other) push(other);
+      return rows;
+    }
+    (Array.isArray(ids) ? ids : []).forEach((rawId) => {
+      const id = normalizeAttrId(rawId);
+      if (!id) return;
+      const main = mainIdMap.get(id);
+      if (main) {
+        push(main);
+        return;
+      }
+      const other = otherIdMap.get(id);
+      if (other) push(other);
+    });
+    return rows;
+  };
+
+  const getSkuSupplyFields = (sku) => ({
+    price: String(sku?.product_price ?? sku?.productPrice ?? sku?.shop_price ?? sku?.price ?? "").trim(),
+    stock: String(sku?.product_number ?? sku?.productNumber ?? sku?.stock ?? sku?.qty ?? "").trim(),
+    sn: String(sku?.product_sn ?? sku?.productSn ?? sku?.goods_sn ?? sku?.sn ?? "").trim(),
+  });
+
+  const extractSkuProductId = (sku) => String(sku?.product_id ?? sku?.productId ?? "").trim();
+
+  const extractProductIdsFromProducts = (products) =>
+    (Array.isArray(products) ? products : [])
+      .map((sku) => extractSkuProductId(sku))
+      .filter(Boolean);
+
+  const buildSpecRowsFromProductSkus = (products, maps) => {
+    const list = Array.isArray(products) ? products : [];
+    const templateMaps = buildSpecValueMapsById();
+    const mainIdMap = mergeSpecValueMaps(templateMaps.mainIdMap, maps?.mainIdMap);
+    const otherIdMap = mergeSpecValueMaps(templateMaps.otherIdMap, maps?.otherIdMap);
+
+    const mainRows = [];
+    const otherRows = [];
+    const mainSeen = new Set();
+    const otherSeen = new Set();
+
+    list.forEach((sku) => {
+      const rawAttr = getSkuSheinGoodsAttrRaw(sku);
+      const ids = extractSheinGoodsAttrIds(rawAttr);
+      if (ids.length === 1) {
+        const onlyId = normalizeAttrId(ids[0]);
+        if (!onlyId) return;
+        const main = mainIdMap.get(onlyId);
+        if (main) {
+          const key = `${main.name}::${main.value}`;
+          if (!mainSeen.has(key)) {
+            mainSeen.add(key);
+            mainRows.push({ name: main.name, value: main.value });
+          }
+          return;
+        }
+        const other = otherIdMap.get(onlyId);
+        if (other) {
+          const key = `${other.name}::${other.value}`;
+          if (!otherSeen.has(key)) {
+            otherSeen.add(key);
+            otherRows.push({ name: other.name, value: other.value });
+          }
+        }
+        return;
+      }
+      ids.forEach((id) => {
+        const normalizedId = normalizeAttrId(id);
+        if (!normalizedId) return;
+        const main = mainIdMap.get(normalizedId);
+        if (main) {
+          const key = `${main.name}::${main.value}`;
+          if (!mainSeen.has(key)) {
+            mainSeen.add(key);
+            mainRows.push({ name: main.name, value: main.value });
+          }
+          return;
+        }
+        const other = otherIdMap.get(normalizedId);
+        if (other) {
+          const key = `${other.name}::${other.value}`;
+          if (!otherSeen.has(key)) {
+            otherSeen.add(key);
+            otherRows.push({ name: other.name, value: other.value });
+          }
+        }
+      });
+    });
+
+    return { mainRows, otherRows };
+  };
+
   const getSpecList = (kind) => (kind === "main" ? sheinSpecMainList : sheinSpecOtherList);
   const getSpecRows = (kind) => (kind === "main" ? sheinSpecMainRows : sheinSpecOtherRows);
   const setSpecRows = (kind, rows) => {
@@ -454,31 +799,45 @@ export function setupShein() {
   const renderSpecCards = () => {
     const mainRows = sheinSpecMainRows.filter((r) => r?.name && r?.value);
     const otherRows = sheinSpecOtherRows.filter((r) => r?.name && r?.value);
+    const groupRowsByName = (rows) => {
+      const map = new Map();
+      rows.forEach((row) => {
+        const name = String(row?.name ?? "").trim();
+        const value = String(row?.value ?? "").trim();
+        if (!name || !value) return;
+        if (!map.has(name)) map.set(name, []);
+        const bucket = map.get(name);
+        if (!bucket.includes(value)) bucket.push(value);
+      });
+      return Array.from(map.entries()).map(([name, values]) => ({ name, values }));
+    };
+    const mainGroups = groupRowsByName(mainRows);
+    const otherGroups = groupRowsByName(otherRows);
     if (sheinSpecMainSummary) {
-      if (!mainRows.length) {
+      if (!mainGroups.length) {
         sheinSpecMainSummary.textContent = "未选择";
         sheinSpecMainSummary.className = "text-xs text-slate-400";
       } else {
-        sheinSpecMainSummary.innerHTML = mainRows
+        sheinSpecMainSummary.innerHTML = mainGroups
           .map(
             (r) =>
               `<span class="inline-flex items-center gap-1 px-2 py-1 rounded-lg border border-slate-200 bg-slate-50 text-[11px] text-slate-600 mr-1 mb-1">${escapeHtml(
-                `${r.name}: ${r.value}`,
+                `${r.name}: ${r.values.join(" / ")}`,
               )}</span>`,
           )
           .join("");
       }
     }
     if (sheinSpecOtherSummary) {
-      if (!otherRows.length) {
+      if (!otherGroups.length) {
         sheinSpecOtherSummary.textContent = "未选择";
         sheinSpecOtherSummary.className = "text-xs text-slate-400";
       } else {
-        sheinSpecOtherSummary.innerHTML = otherRows
+        sheinSpecOtherSummary.innerHTML = otherGroups
           .map(
             (r) =>
               `<span class="inline-flex items-center gap-1 px-2 py-1 rounded-lg border border-slate-200 bg-slate-50 text-[11px] text-slate-600 mr-1 mb-1">${escapeHtml(
-                `${r.name}: ${r.value}`,
+                `${r.name}: ${r.values.join(" / ")}`,
               )}</span>`,
           )
           .join("");
@@ -494,9 +853,18 @@ export function setupShein() {
 
     if (sheinSpecMsg) {
       const hasData = sheinSpecMainList.length || sheinSpecOtherList.length;
-      sheinSpecMsg.textContent = hasData ? "主规格必选，最多 3 个属性值" : "模板未返回规格信息";
+      sheinSpecMsg.textContent = hasData ? "主规格必选，主次规格名称合计最多 3 个，内容可多选" : "模板未返回规格信息";
     }
     updateStep2Availability();
+  };
+
+  const getSpecNameCountFromRows = (rows) => {
+    const names = new Set();
+    (Array.isArray(rows) ? rows : []).forEach((row) => {
+      const name = String(row?.name ?? "").trim();
+      if (name) names.add(name);
+    });
+    return names.size;
   };
 
   const getMainSpecRows = () =>
@@ -504,7 +872,18 @@ export function setupShein() {
 
   const getFirstMainSpecRow = () => {
     const rows = getMainSpecRows();
-    return rows.length ? [rows[0]] : [];
+    if (!rows.length) return [];
+    const firstName = String(rows[0]?.name ?? "").trim();
+    if (!firstName) return [];
+    const valueSeen = new Set();
+    return rows.filter((row) => {
+      const name = String(row?.name ?? "").trim();
+      const value = String(row?.value ?? "").trim();
+      if (!name || !value || name !== firstName) return false;
+      if (valueSeen.has(value)) return false;
+      valueSeen.add(value);
+      return true;
+    });
   };
 
   const buildSpecKey = (row) => `${String(row?.name ?? "").trim()}::${String(row?.value ?? "").trim()}`;
@@ -684,33 +1063,91 @@ export function setupShein() {
     if (detailImagesInput) detailImagesInput.value = Object.keys(detail).length ? JSON.stringify(detail, null, 2) : "";
   };
 
-  const buildSupplyKey = (main, other) => {
-    const mainKey = `${String(main?.name ?? "").trim()}::${String(main?.value ?? "").trim()}`;
-    const otherKey = other ? `${String(other?.name ?? "").trim()}::${String(other?.value ?? "").trim()}` : "";
-    return otherKey ? `${mainKey}||${otherKey}` : mainKey;
-  };
-
-  const syncSupplyRows = () => {
+  const getAllSupplySpecRows = () => {
     const mainRows = getMainSpecRows();
     const otherRows = sheinSpecOtherRows.filter(
       (row) => String(row?.name ?? "").trim() && String(row?.value ?? "").trim(),
     );
-    const next = new Map();
-    if (otherRows.length) {
-      mainRows.forEach((main) => {
-        otherRows.forEach((other) => {
-          const key = buildSupplyKey(main, other);
-          const existing = sheinSupplyRows.get(key) || {};
-          next.set(key, { main, other, price: existing.price || "", stock: existing.stock || "", sn: existing.sn || "" });
+    return [...mainRows, ...otherRows];
+  };
+
+  const getSupplySpecGroups = () => {
+    const groups = new Map();
+    getAllSupplySpecRows().forEach((row) => {
+      const name = String(row?.name ?? "").trim();
+      const value = String(row?.value ?? "").trim();
+      if (!name || !value) return;
+      if (!groups.has(name)) groups.set(name, []);
+      const bucket = groups.get(name);
+      if (!bucket.includes(value)) bucket.push(value);
+    });
+    return Array.from(groups.entries()).map(([name, values]) => ({ name, values }));
+  };
+
+  const buildSupplyCombinations = (groups) => {
+    if (!Array.isArray(groups) || !groups.length) return [];
+    let combos = [[]];
+    groups.forEach((group) => {
+      const name = String(group?.name ?? "").trim();
+      const values = Array.isArray(group?.values)
+        ? group.values.map((v) => String(v ?? "").trim()).filter(Boolean)
+        : [];
+      if (!name || !values.length) {
+        combos = [];
+        return;
+      }
+      const next = [];
+      combos.forEach((combo) => {
+        values.forEach((value) => {
+          next.push([...combo, { name, value }]);
         });
       });
-    } else {
-      mainRows.forEach((main) => {
-        const key = buildSupplyKey(main, null);
-        const existing = sheinSupplyRows.get(key) || {};
-        next.set(key, { main, other: null, price: existing.price || "", stock: existing.stock || "", sn: existing.sn || "" });
+      combos = next;
+    });
+    return combos;
+  };
+
+  const buildSupplyKey = (specs) => {
+    const normalized = (Array.isArray(specs) ? specs : [])
+      .map((spec) => ({
+        name: String(spec?.name ?? "").trim(),
+        value: String(spec?.value ?? "").trim(),
+      }))
+      .filter((spec) => spec.name && spec.value)
+      .sort((a, b) => {
+        const byName = a.name.localeCompare(b.name);
+        if (byName !== 0) return byName;
+        return a.value.localeCompare(b.value);
       });
-    }
+    return normalized.map((spec) => `${spec.name}::${spec.value}`).join("||");
+  };
+
+  const formatSupplySpecLabel = (specs) => {
+    const list = (Array.isArray(specs) ? specs : [])
+      .map((spec) => {
+        const name = String(spec?.name ?? "").trim();
+        const value = String(spec?.value ?? "").trim();
+        if (!name || !value) return "";
+        return `${name}-${value}`;
+      })
+      .filter(Boolean);
+    return list.length ? list.join(" / ") : "规格组合";
+  };
+
+  const syncSupplyRows = () => {
+    const groups = getSupplySpecGroups();
+    const combinations = buildSupplyCombinations(groups);
+    const next = new Map();
+    combinations.forEach((specs) => {
+      const key = buildSupplyKey(specs);
+      const existing = sheinSupplyRows.get(key) || {};
+      next.set(key, {
+        specs,
+        price: existing.price || "",
+        stock: existing.stock || "",
+        sn: existing.sn || "",
+      });
+    });
     sheinSupplyRows = next;
   };
 
@@ -727,7 +1164,8 @@ export function setupShein() {
   const renderSupplyTable = () => {
     if (!supplyTable || !supplyBlock) return;
     syncSupplyRows();
-    const rows = Array.from(sheinSupplyRows.values());
+    const entries = Array.from(sheinSupplyRows.entries());
+    const rows = entries.map(([, row]) => row);
     if (supplyMsg) {
       supplyMsg.classList.add("hidden");
       supplyMsg.textContent = "";
@@ -736,24 +1174,31 @@ export function setupShein() {
       supplyTable.innerHTML = '<div class="text-xs text-slate-400">请先选择主规格名称和内容。</div>';
       return;
     }
-    const mainName = String(rows[0]?.main?.name ?? "主规格").trim() || "主规格";
-    const otherName = rows[0]?.other ? String(rows[0]?.other?.name ?? "次规格").trim() || "次规格" : "";
-    const headerOther = otherName
-      ? `<th class="px-4 py-2 text-xs font-semibold text-slate-500">${escapeHtml(otherName)}</th>`
-      : "";
+    const specGroups = getSupplySpecGroups();
+    const specNames = specGroups.map((group) => String(group?.name ?? "").trim()).filter(Boolean);
+    const specHeaderHtml = specNames
+      .map((name) => `<th class="px-4 py-2 text-xs font-semibold text-slate-500">${escapeHtml(name)}</th>`)
+      .join("");
 
-    const bodyHtml = rows
-      .map((row, idx) => {
-        const mainValue = `${row.main.name}：${row.main.value}`;
-        const otherValue = row.other ? `${row.other.name}：${row.other.value}` : "";
-        const rowKey = buildSupplyKey(row.main, row.other);
-        const otherCell = otherName
-          ? `<td class="px-4 py-2 text-xs text-slate-700 whitespace-nowrap">${escapeHtml(otherValue)}</td>`
-          : "";
+    const bodyHtml = entries
+      .map(([rowKey, row], idx) => {
+        const valueMap = new Map(
+          (Array.isArray(row?.specs) ? row.specs : []).map((spec) => [
+            String(spec?.name ?? "").trim(),
+            String(spec?.value ?? "").trim(),
+          ]),
+        );
+        const specCellHtml = specNames
+          .map(
+            (name) =>
+              `<td class="px-4 py-2 text-xs text-slate-700 whitespace-nowrap">${escapeHtml(
+                String(valueMap.get(name) ?? ""),
+              )}</td>`,
+          )
+          .join("");
         return `
           <tr class="border-b border-slate-100">
-            <td class="px-4 py-2 text-xs text-slate-700 whitespace-nowrap">${escapeHtml(mainValue)}</td>
-            ${otherCell}
+            ${specCellHtml}
             <td class="px-4 py-2">
               <input data-supply-field="price" data-supply-idx="${idx}" value="${escapeHtml(
                 row.price || "",
@@ -784,8 +1229,7 @@ export function setupShein() {
       <table class="w-full text-left border-collapse">
         <thead>
           <tr class="text-xs text-slate-400 border-b border-slate-100 bg-slate-50/60">
-            <th class="px-4 py-2 font-semibold text-slate-500">${escapeHtml(mainName)}</th>
-            ${headerOther}
+            ${specHeaderHtml}
             <th class="px-4 py-2 font-semibold text-slate-500">Shop price<span class="text-rose-500">*</span></th>
             <th class="px-4 py-2 font-semibold text-slate-500">stock<span class="text-rose-500">*</span></th>
             <th class="px-4 py-2 font-semibold text-slate-500">商品货号<span class="text-rose-500">*</span></th>
@@ -839,9 +1283,7 @@ export function setupShein() {
     if (!rows.length) return { ok: false, msg: "请先选择主规格名称和内容。" };
     const missing = rows.find((row) => !(row.price && row.stock && row.sn));
     if (missing) {
-      const main = `${missing.main?.name || "主规格"}-${missing.main?.value || ""}`;
-      const other = missing.other ? `${missing.other?.name || "次规格"}-${missing.other?.value || ""}` : "";
-      const label = other ? `${main} / ${other}` : main;
+      const label = formatSupplySpecLabel(missing.specs);
       return { ok: false, msg: `供应信息未填完整：${label}` };
     }
     return { ok: true, msg: "" };
@@ -905,15 +1347,31 @@ export function setupShein() {
     if (!sheinGoodsAttrInput) return;
     const mainDefines = buildSpecDefines(sheinSpecMainRows, sheinSpecMainList);
     const otherDefines = buildSpecDefines(sheinSpecOtherRows, sheinSpecOtherList);
-    const list = [];
-    [...mainDefines, ...otherDefines].forEach((item) => {
-      const typeId = String(item?.type_id ?? "").trim();
-      const values = Array.isArray(item?.spec_value_ids) ? item.spec_value_ids : [];
-      values.forEach((val) => {
-        const valueId = String(val ?? "").trim();
-        if (typeId && valueId) list.push(`${typeId}|${valueId}`);
+    const idGroups = [...mainDefines, ...otherDefines]
+      .map((item) =>
+        (Array.isArray(item?.spec_value_ids) ? item.spec_value_ids : [])
+          .map((id) => String(id ?? "").trim())
+          .filter(Boolean),
+      )
+      .filter((ids) => ids.length);
+    if (!idGroups.length) {
+      sheinGoodsAttrInput.value = "";
+      return;
+    }
+    let combos = [[]];
+    idGroups.forEach((ids) => {
+      const next = [];
+      combos.forEach((combo) => {
+        ids.forEach((id) => {
+          next.push([...combo, id]);
+        });
       });
+      combos = next;
     });
+    const seen = new Set();
+    const list = combos
+      .map((combo) => combo.join("|"))
+      .filter((value) => value && !seen.has(value) && (seen.add(value), true));
     sheinGoodsAttrInput.value = list.length ? JSON.stringify(list, null, 2) : "";
   };
 
@@ -931,14 +1389,21 @@ export function setupShein() {
         if (val) entry.attribute_extra_value = val;
       } else if (attr.mode === "4") {
         const rows = Array.isArray(sel?.rows) ? sel.rows : [];
-        const extras = rows
+        const labelToId = new Map(
+          getCustomAttrNameOptions(attr.raw).map((opt) => [String(opt.label ?? "").trim(), String(opt.id ?? "").trim()]),
+        );
+        const pairs = rows
           .map((r) => {
-            const name = String(r?.name ?? "").trim();
+            const nameText = String(r?.name ?? "").trim();
+            const rawNameId = String(r?.nameId ?? r?.id ?? r?.valueId ?? "").trim();
+            const nameId = rawNameId || String(labelToId.get(nameText) ?? "").trim();
             const value = String(r?.value ?? "").trim();
-            if (name && value) return `${name}:${value}`;
-            return value || name;
+            return { nameId, value };
           })
-          .filter(Boolean);
+          .filter((r) => r.nameId && r.value);
+        const ids = pairs.map((r) => r.nameId);
+        const extras = pairs.map((r) => r.value);
+        if (ids.length) entry.attribute_value_id = ids.join(",");
         if (extras.length) entry.attribute_extra_value = extras.join(",");
       } else {
         const values = Array.isArray(sel?.values) ? sel.values : [];
@@ -989,15 +1454,26 @@ export function setupShein() {
         return;
       }
       if (attr.mode === "0") {
+        const templateDefault = String(attr?.raw?.default ?? "").trim();
+        const isEditing = Boolean(String(editingSheinGoodsId || "").trim());
+
+        // Create mode: default value only comes from `default` field.
+        if (!isEditing) {
+          if (!templateDefault) return;
+          sheinAttrSelections.set(attr.key, { mode: attr.mode, value: templateDefault });
+          changed = true;
+          return;
+        }
+
+        // Edit mode: prefer current value from values_list, fallback to template default.
         const valuesList = getAttrValuesList(attr.raw);
-        if (!valuesList.length) return;
         const candidate = valuesList.find((v) => String(v?.attribute_extra_value ?? "").trim()) || valuesList[0];
         const value =
           candidate?.attribute_extra_value ??
           candidate?.extra_value ??
           candidate?.attribute_value ??
           candidate?.attribute_value_name ??
-          "";
+          templateDefault;
         if (!String(value ?? "").trim()) return;
         sheinAttrSelections.set(attr.key, { mode: attr.mode, value: String(value).trim() });
         changed = true;
@@ -1006,7 +1482,7 @@ export function setupShein() {
       if (attr.mode === "4") {
         const valuesList = getAttrValuesList(attr.raw);
         if (!valuesList.length) return;
-        const idToLabel = new Map(attr.options.map((opt) => [String(opt.id ?? ""), String(opt.label ?? "")]));
+        const idToLabel = new Map(getCustomAttrNameOptions(attr.raw).map((opt) => [String(opt.id ?? ""), String(opt.label ?? "")]));
         const rows = valuesList
           .map((v) => {
             const id =
@@ -1024,9 +1500,10 @@ export function setupShein() {
               v?.name ??
               "";
             const value = v?.attribute_extra_value ?? v?.extra_value ?? v?.extra ?? "";
-            return { name: String(name ?? "").trim(), value: String(value ?? "").trim() };
+            const nameId = String(id ?? "").trim();
+            return { nameId, name: String(name ?? "").trim(), value: String(value ?? "").trim() };
           })
-          .filter((row) => row.name || row.value);
+          .filter((row) => row.nameId || row.name || row.value);
         if (!rows.length) return;
         sheinAttrSelections.set(attr.key, { mode: attr.mode, rows });
         changed = true;
@@ -1157,14 +1634,29 @@ export function setupShein() {
     activeSpecKind = isMain ? "main" : "other";
     if (attrModalTitle) attrModalTitle.textContent = isMain ? "主规格" : "次规格";
     if (attrModalSubtitle) {
-      attrModalSubtitle.textContent = isMain ? "必选 1-3 个属性值" : "可选";
+      attrModalSubtitle.textContent = isMain
+        ? "主规格必选，主次规格名称合计最多 3 个，内容可多选"
+        : "主次规格名称合计最多 3 个，内容可多选";
     }
     const specList = getSpecList(activeSpecKind);
-    const maxRows = isMain
-      ? Math.max(1, Math.min(3, specList.length || 3))
-      : Math.max(1, Math.min(10, specList.length || 3));
+    const rowCap = Math.max(1, Math.min(3, specList.length || 3));
     const existingRows = getSpecRows(activeSpecKind);
-    const rowsState = existingRows.length ? existingRows.map((r) => ({ name: r?.name ?? "", value: r?.value ?? "" })) : [{ name: "", value: "" }];
+    const groupedRows = (() => {
+      const byName = new Map();
+      existingRows.forEach((row) => {
+        const name = String(row?.name ?? "").trim();
+        const value = String(row?.value ?? "").trim();
+        if (!name) return;
+        if (!byName.has(name)) byName.set(name, new Set());
+        if (value) byName.get(name).add(value);
+      });
+      return Array.from(byName.entries()).map(([name, values]) => ({ name, values: Array.from(values) }));
+    })();
+    const rowsState = groupedRows.length ? groupedRows : [{ name: "", values: [] }];
+    const totalNameLimit = 3;
+    const otherKind = isMain ? "other" : "main";
+    const otherNameCount = getSpecNameCountFromRows(getSpecRows(otherKind));
+    const getCurrentNameLimit = () => Math.max(0, totalNameLimit - otherNameCount);
 
     const getUsedNames = (skipIdx) => {
       const used = new Set();
@@ -1187,6 +1679,7 @@ export function setupShein() {
 
     const buildNameOptions = (selectedName, idx) => {
       const used = getUsedNames(idx);
+      const reachedNameLimit = used.size >= getCurrentNameLimit();
       const placeholder = `<option value="" ${selectedName ? "" : "selected"}>请选择名称</option>`;
       const opts = specList
         .map(
@@ -1194,7 +1687,7 @@ export function setupShein() {
             const name = String(item.name || "").trim();
             if (!name) return "";
             const isSelected = name === selectedName;
-            const disabled = !isSelected && used.has(name);
+            const disabled = !isSelected && (used.has(name) || reachedNameLimit);
             return `<option value="${escapeHtml(name)}" ${isSelected ? "selected" : ""} ${disabled ? "disabled" : ""}>${escapeHtml(
               name,
             )}</option>`;
@@ -1210,22 +1703,26 @@ export function setupShein() {
       return item?.values || [];
     };
 
-    const buildValueOptions = (selectedValue, name) => {
+    const buildValueOptions = (selectedValues, name) => {
       const values = getValuesForName(name);
       if (!values.length) {
-        return `<option value="" selected>暂无可选内容</option>`;
+        return `<option value="" selected disabled>暂无可选内容</option>`;
       }
-      const placeholder = `<option value="" ${selectedValue ? "" : "selected"}>请选择内容</option>`;
+      const selectedSet = new Set(
+        (Array.isArray(selectedValues) ? selectedValues : [])
+          .map((v) => String(v ?? "").trim())
+          .filter(Boolean),
+      );
       const opts = values
         .map((v) => {
           const label = String(v?.label ?? "").trim();
           if (!label) return "";
-          return `<option value="${escapeHtml(label)}" ${label === selectedValue ? "selected" : ""}>${escapeHtml(
+          return `<option value="${escapeHtml(label)}" ${selectedSet.has(label) ? "selected" : ""}>${escapeHtml(
             label,
           )}</option>`;
         })
         .join("");
-      return placeholder + opts;
+      return opts;
     };
 
     attrModalBody.innerHTML = `
@@ -1238,7 +1735,7 @@ export function setupShein() {
         <div id="shein-spec-modal-msg" class="hidden text-xs text-rose-600 bg-rose-50 border border-rose-200 px-3 py-2 rounded-xl"></div>
         <div id="shein-spec-rows" class="space-y-2"></div>
         <div class="flex items-center justify-between">
-          <div class="text-[11px] text-slate-400">最多可添加 ${maxRows} 行</div>
+          <div class="text-[11px] text-slate-400">主次规格名称合计最多 ${totalNameLimit} 个</div>
           <button id="shein-spec-add" type="button" class="px-3 py-2 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50">
             <i class="fas fa-plus mr-1"></i>添加行
           </button>
@@ -1249,6 +1746,30 @@ export function setupShein() {
     const rowsWrap = attrModalBody.querySelector("#shein-spec-rows");
     const addBtn = attrModalBody.querySelector("#shein-spec-add");
     const msgEl = attrModalBody.querySelector("#shein-spec-modal-msg");
+    const canAddNewRow = () => {
+      const noMoreNames = getSelectedNameCount() >= specList.length;
+      const reachModalCap = rowsState.length >= rowCap;
+      const reachTotalNameLimit = getSelectedNameCount() >= getCurrentNameLimit();
+      return !(noMoreNames || reachModalCap || reachTotalNameLimit);
+    };
+    const refreshAddBtnState = () => {
+      if (!addBtn) return;
+      addBtn.disabled = !canAddNewRow();
+    };
+    const buildSelectedValuesHtml = (values) => {
+      const selectedValues = (Array.isArray(values) ? values : [])
+        .map((v) => String(v ?? "").trim())
+        .filter(Boolean);
+      if (!selectedValues.length) return '<span class="text-[11px] text-slate-400">未选择内容</span>';
+      return selectedValues
+        .map(
+          (value) =>
+            `<span class="inline-flex items-center px-2 py-1 rounded-lg border border-slate-200 bg-slate-50 text-[11px] text-slate-700">${escapeHtml(
+              value,
+            )}</span>`,
+        )
+        .join("");
+    };
 
     const renderRows = () => {
       if (!rowsWrap) return;
@@ -1256,34 +1777,51 @@ export function setupShein() {
       rowsState.forEach((row, idx) => {
         const rowEl = document.createElement("div");
         rowEl.dataset.specRow = "1";
-        rowEl.className = "grid grid-cols-3 gap-2 items-center";
+        rowEl.className = "grid grid-cols-3 gap-2";
+        const selectedHtml = buildSelectedValuesHtml(row?.values);
         rowEl.innerHTML = `
           <select data-spec-name="1" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white">
             ${buildNameOptions(String(row?.name ?? "").trim(), idx)}
           </select>
-          <select data-spec-value="1" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white">
-            ${buildValueOptions(String(row?.value ?? "").trim(), String(row?.name ?? "").trim())}
+          <select data-spec-value="1" multiple size="4" class="w-full min-h-[96px] px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white">
+            ${buildValueOptions(row?.values ?? [], String(row?.name ?? "").trim())}
           </select>
           <div class="flex justify-end">
-            <button type="button" data-spec-del="1" class="px-3 py-2 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50">
+            <button type="button" data-spec-del="1" class="px-3 py-2 rounded-xl text-xs font-semibold text-slate-500 hover:text-rose-600 hover:bg-slate-50">
               <i class="fas fa-trash"></i>
             </button>
           </div>
+          <div class="text-[11px] text-slate-500 truncate">${escapeHtml(String(row?.name ?? "").trim() || "名称")}</div>
+          <div data-spec-selected="1" class="col-span-2 flex flex-wrap items-center gap-1.5">${selectedHtml}</div>
         `;
         rowsWrap.appendChild(rowEl);
         const nameSelect = rowEl.querySelector("[data-spec-name]");
         const valueSelect = rowEl.querySelector("[data-spec-value]");
+        const selectedWrap = rowEl.querySelector("[data-spec-selected]");
         if (nameSelect) {
           nameSelect.addEventListener("change", () => {
             row.name = String(nameSelect.value || "").trim();
-            row.value = "";
+            row.values = [];
             if (msgEl) msgEl.classList.add("hidden");
             renderRows();
           });
         }
         if (valueSelect) {
+          if (!valueSelect.dataset.clickMultiBound) {
+            valueSelect.dataset.clickMultiBound = "1";
+            valueSelect.addEventListener("mousedown", (e) => {
+              const option = e.target?.closest?.("option");
+              if (!option) return;
+              e.preventDefault();
+              option.selected = !option.selected;
+              valueSelect.dispatchEvent(new Event("change", { bubbles: true }));
+            });
+          }
           valueSelect.addEventListener("change", () => {
-            row.value = String(valueSelect.value || "").trim();
+            row.values = Array.from(valueSelect.selectedOptions || [])
+              .map((opt) => String(opt?.value ?? "").trim())
+              .filter(Boolean);
+            if (selectedWrap) selectedWrap.innerHTML = buildSelectedValuesHtml(row.values);
             if (msgEl) msgEl.classList.add("hidden");
           });
         }
@@ -1295,24 +1833,18 @@ export function setupShein() {
             if (rowsState.length <= 1) return;
             rowsState.splice(idx, 1);
             renderRows();
-            if (addBtn) {
-              const noMoreNames = getSelectedNameCount() >= specList.length;
-              addBtn.disabled = rowsState.length >= maxRows || noMoreNames;
-            }
           });
         }
       });
+      refreshAddBtnState();
     };
 
     renderRows();
     if (addBtn) {
-      addBtn.disabled = rowsState.length >= maxRows || getSelectedNameCount() >= specList.length;
       addBtn.addEventListener("click", () => {
-        const noMoreNames = getSelectedNameCount() >= specList.length;
-        if (rowsState.length >= maxRows || noMoreNames) return;
-        rowsState.push({ name: "", value: "" });
+        if (!canAddNewRow()) return;
+        rowsState.push({ name: "", values: [] });
         renderRows();
-        addBtn.disabled = rowsState.length >= maxRows || getSelectedNameCount() >= specList.length;
       });
     }
 
@@ -1351,10 +1883,20 @@ export function setupShein() {
         </div>
       `;
     } else if (attr?.mode === "4") {
-      const rawList = Array.isArray(attr?.raw?.attribute_value_info_list) ? attr.raw.attribute_value_info_list : [];
-      const options = rawList.map((opt) => String(opt?.attribute_value ?? "").trim()).filter(Boolean);
+      const options = getCustomAttrNameOptions(attr?.raw);
+      const optionById = new Map(options.map((opt) => [String(opt.id ?? ""), opt]));
+      const nameToId = new Map(options.map((opt) => [String(opt.label ?? ""), String(opt.id ?? "")]));
       const maxRows = Math.max(1, options.length || 1);
-      const existingRows = Array.isArray(sel?.rows) && sel.rows.length ? sel.rows : [{ name: "", value: "" }];
+      const existingRowsRaw =
+        Array.isArray(sel?.rows) && sel.rows.length ? sel.rows : [{ nameId: "", name: "", value: "" }];
+      const existingRows = existingRowsRaw.map((r) => {
+        const rawNameId = String(r?.nameId ?? r?.id ?? r?.valueId ?? "").trim();
+        const rawName = String(r?.name ?? "").trim();
+        const value = String(r?.value ?? "").trim();
+        const nameId = rawNameId || String(nameToId.get(rawName) ?? "").trim();
+        const name = String(optionById.get(nameId)?.label ?? rawName).trim();
+        return { nameId, name, value };
+      });
 
       attrModalBody.innerHTML = `
         <div class="space-y-3">
@@ -1378,23 +1920,26 @@ export function setupShein() {
       const addBtn = attrModalBody.querySelector("#shein-custom-add");
       const msgEl = attrModalBody.querySelector("#shein-custom-msg");
 
-      const buildOptions = (selectedName, rows, rowIndex) => {
-        if (!options.length) return `<option value="">\u8bf7\u8f93\u5165\u540d\u79f0</option>`;
+      const buildOptions = (selectedNameId, rows, rowIndex) => {
+        if (!options.length) return `<option value="">\u8bf7\u9009\u62e9\u540d\u79f0</option>`;
         const taken = new Set(
           rows
             .filter((_, idx) => idx !== rowIndex)
-            .map((r) => String(r?.name ?? "").trim())
+            .map((r) => String(r?.nameId ?? "").trim())
             .filter(Boolean)
         );
-        const placeholder = `<option value="" ${selectedName ? "" : "selected"}>\u8bf7\u9009\u62e9\u540d\u79f0</option>`;
+        const placeholder = `<option value="" ${selectedNameId ? "" : "selected"}>\u8bf7\u9009\u62e9\u540d\u79f0</option>`;
         return (
           placeholder +
           options
-          .map((name) => {
-            const isSelected = name === selectedName;
-            const isDisabled = !isSelected && taken.has(name);
-            return `<option value="${escapeHtml(name)}" ${isSelected ? "selected" : ""} ${isDisabled ? "disabled" : ""}>${escapeHtml(
-              name
+          .map((opt) => {
+            const id = String(opt?.id ?? "").trim();
+            const label = String(opt?.label ?? "").trim();
+            if (!id || !label) return "";
+            const isSelected = id === selectedNameId;
+            const isDisabled = !isSelected && taken.has(id);
+            return `<option value="${escapeHtml(id)}" data-name-text="${escapeHtml(label)}" ${isSelected ? "selected" : ""} ${isDisabled ? "disabled" : ""}>${escapeHtml(
+              label
             )}</option>`;
           })
           .join("")
@@ -1409,7 +1954,7 @@ export function setupShein() {
           rowEl.className = "grid grid-cols-3 gap-2 items-center";
           rowEl.innerHTML = `
             <select data-custom-name="1" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white">
-              ${buildOptions(String(row?.name ?? "").trim(), rows, idx)}
+              ${buildOptions(String(row?.nameId ?? "").trim(), rows, idx)}
             </select>
             <input data-custom-value="1" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white" value="${escapeHtml(
               String(row?.value ?? ""),
@@ -1424,7 +1969,11 @@ export function setupShein() {
           const nameSelect = rowEl.querySelector("[data-custom-name]");
           if (nameSelect) {
             nameSelect.addEventListener("change", () => {
-              row.name = String(nameSelect.value || "").trim();
+              const nameId = String(nameSelect.value || "").trim();
+              const selectedLabel =
+                String(optionById.get(nameId)?.label ?? nameSelect.selectedOptions?.[0]?.dataset?.nameText ?? "").trim();
+              row.nameId = nameId;
+              row.name = selectedLabel;
               if (msgEl) msgEl.classList.add("hidden");
               renderRows(rows);
             });
@@ -1450,14 +1999,18 @@ export function setupShein() {
         });
       };
 
-      const rowsState = existingRows.map((r) => ({ name: r?.name ?? "", value: r?.value ?? "" }));
+      const rowsState = existingRows.map((r) => ({
+        nameId: String(r?.nameId ?? "").trim(),
+        name: String(r?.name ?? "").trim(),
+        value: String(r?.value ?? ""),
+      }));
       renderRows(rowsState);
 
       if (addBtn) {
         addBtn.disabled = rowsState.length >= maxRows;
         addBtn.addEventListener("click", () => {
           if (rowsState.length >= maxRows) return;
-          rowsState.push({ name: "", value: "" });
+          rowsState.push({ nameId: "", name: "", value: "" });
           renderRows(rowsState);
           addBtn.disabled = rowsState.length >= maxRows;
         });
@@ -1539,27 +2092,46 @@ export function setupShein() {
       const isMain = kind === "main";
       const rows = Array.from(attrModalBody?.querySelectorAll("[data-spec-row]") || []).map((row) => {
         const name = String(row.querySelector("[data-spec-name]")?.value ?? "").trim();
-        const value = String(row.querySelector("[data-spec-value]")?.value ?? "").trim();
-        return { name, value };
+        const values = Array.from(row.querySelector("[data-spec-value]")?.selectedOptions || [])
+          .map((opt) => String(opt?.value ?? "").trim())
+          .filter(Boolean);
+        return { name, values };
       });
-      const cleaned = rows.filter((r) => r.name && r.value);
+      const selectedNameCount = new Set(rows.map((row) => String(row?.name ?? "").trim()).filter(Boolean)).size;
+      const otherKind = isMain ? "other" : "main";
+      const otherRows = getSpecRows(otherKind);
+      const totalNameCount = selectedNameCount + getSpecNameCountFromRows(otherRows);
+      const dedupe = new Set();
+      const cleaned = [];
+      rows.forEach((row) => {
+        if (!row?.name) return;
+        const values = Array.isArray(row?.values) ? row.values : [];
+        values.forEach((value) => {
+          const val = String(value ?? "").trim();
+          if (!val) return;
+          const key = `${row.name}::${val}`;
+          if (dedupe.has(key)) return;
+          dedupe.add(key);
+          cleaned.push({ name: row.name, value: val });
+        });
+      });
       if (isMain) {
         if (!cleaned.length) {
           const msgEl = attrModalBody?.querySelector("#shein-spec-modal-msg");
           if (msgEl) {
-            msgEl.textContent = "主规格至少选择 1 个属性值";
+            msgEl.textContent = "主规格至少选择 1 个内容";
             msgEl.classList.remove("hidden");
           }
           return;
         }
-        if (cleaned.length > 3) {
-          const msgEl = attrModalBody?.querySelector("#shein-spec-modal-msg");
-          if (msgEl) {
-            msgEl.textContent = "主规格最多选择 3 个属性值";
-            msgEl.classList.remove("hidden");
-          }
-          return;
+      }
+      if (totalNameCount > 3) {
+        const msgEl = attrModalBody?.querySelector("#shein-spec-modal-msg");
+        if (msgEl) {
+          msgEl.textContent = "主规格和次规格名称合计最多 3 个";
+          msgEl.classList.remove("hidden");
         }
+        return;
       }
       setSpecRows(kind, cleaned);
       closeAttrModal();
@@ -1576,12 +2148,18 @@ export function setupShein() {
       if (val) sheinAttrSelections.set(attr.key, { mode: attr.mode, value: val });
       else sheinAttrSelections.delete(attr.key);
     } else if (attr.mode === "4") {
+      const nameOptions = getCustomAttrNameOptions(attr.raw);
+      const labelToId = new Map(nameOptions.map((opt) => [String(opt.label ?? ""), String(opt.id ?? "")]));
       const rows = Array.from(attrModalBody.querySelectorAll("#shein-custom-rows > div")).map((row) => {
-        const name = String(row.querySelector("[data-custom-name]")?.value ?? "").trim();
+        const nameSelect = row.querySelector("[data-custom-name]");
+        const selectedOpt = nameSelect?.selectedOptions?.[0];
+        const selectedId = String(nameSelect?.value ?? "").trim();
+        const selectedName = String(selectedOpt?.dataset?.nameText ?? selectedOpt?.textContent ?? "").trim();
+        const nameId = selectedId || String(labelToId.get(selectedName) ?? "").trim();
         const value = String(row.querySelector("[data-custom-value]")?.value ?? "").trim();
-        return { name, value };
+        return { nameId, name: selectedName, value };
       });
-      const missingName = rows.some((r) => !r.name);
+      const missingName = rows.some((r) => !r.nameId);
       if (missingName) {
         const msgEl = attrModalBody.querySelector("#shein-custom-msg");
         if (msgEl) {
@@ -1590,7 +2168,7 @@ export function setupShein() {
         }
         return;
       }
-      const cleaned = rows.filter((r) => r.name || r.value);
+      const cleaned = rows.filter((r) => r.nameId || r.value);
       if (cleaned.length) sheinAttrSelections.set(attr.key, { mode: attr.mode, rows: cleaned });
       else sheinAttrSelections.delete(attr.key);
     } else {
@@ -1834,6 +2412,16 @@ export function setupShein() {
   };
 
   const resetUpload = () => {
+    clearSheinSubmitJumpTimer();
+    editingSheinGoodsId = "";
+    editingSheinProductIds = [];
+    sheinCatCheckSeq += 1;
+    syncCreateBtnLabel();
+    try {
+      window.sessionStorage.removeItem("topm:shein-edit-id");
+    } catch {
+      // ignore
+    }
     templateRes = null;
     lastTemplateCatId = "";
     lastUploadOk = false;
@@ -1869,6 +2457,15 @@ export function setupShein() {
     if (lengthInput) lengthInput.value = "";
     if (wideInput) wideInput.value = "";
     if (highInput) highInput.value = "";
+    if (catOut) {
+      catOut.textContent = "-";
+      delete catOut.dataset.catLeafId;
+      delete catOut.dataset.catTypeId;
+      delete catOut.dataset.catIds;
+      delete catOut.dataset.catPathText;
+      delete catOut.dataset.catPathParts;
+    }
+    if (catOutText) catOutText.textContent = "-";
     renderImagePreview();
     setTemplateMsg("");
     setTemplateVisibility(false);
@@ -2019,7 +2616,7 @@ export function setupShein() {
   buildCategorySelector("shein-cat-select", "shein", "shein-cat-id");
 
   if (catOut) {
-    const observer = new MutationObserver(() => {
+    const handleCatSelectionChange = () => {
       const catId = getCatId();
       const typeId = getTypeId();
       const pathText = String(catOut?.dataset?.catPathText || "").trim();
@@ -2031,7 +2628,9 @@ export function setupShein() {
         stepDot1.classList.add("bg-emerald-100", "text-emerald-700");
       }
       const nextTypeId = typeId || catId;
-      if (nextTypeId && nextTypeId !== lastTemplateCatId) {
+      if (!sheinApplyingEditData && nextTypeId && nextTypeId !== lastTemplateCatId) {
+        // Mark early to prevent duplicate fetches caused by rapid dataset mutations.
+        lastTemplateCatId = nextTypeId;
         templateRes = null;
         sheinAttrSelections.clear();
         sheinAttrList = [];
@@ -2047,12 +2646,25 @@ export function setupShein() {
         fetchTemplate(nextTypeId, { silent: false });
       }
       updateStepChecks();
+      if (catId && editingSheinGoodsId) {
+        maybeExpandEditStepsByLeafCategory(catId);
+      }
+    };
+    const observer = new MutationObserver(() => {
+      handleCatSelectionChange();
     });
     try {
-      observer.observe(catOut, { childList: true, characterData: true, subtree: true });
+      observer.observe(catOut, {
+        childList: true,
+        characterData: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ["data-cat-leaf-id", "data-cat-type-id", "data-cat-ids", "data-cat-path-text", "data-cat-path-parts"],
+      });
     } catch {
       // ignore
     }
+    handleCatSelectionChange();
   }
 
   if (templateForm && !templateForm.dataset.bound) {
@@ -2187,6 +2799,7 @@ export function setupShein() {
 
   const setSheinEditingId = (id) => {
     editingSheinGoodsId = String(id ?? "").trim();
+    syncCreateBtnLabel();
     try {
       if (editingSheinGoodsId) window.sessionStorage.setItem("topm:shein-edit-id", editingSheinGoodsId);
       else window.sessionStorage.removeItem("topm:shein-edit-id");
@@ -2199,6 +2812,8 @@ export function setupShein() {
     const id = String(goodsId ?? "").trim();
     if (!info || !id) return;
     setSheinEditingId(id);
+    sheinApplyingEditData = true;
+    try {
 
     const cateListsRaw = parseMaybeJson(info?.cate_lists ?? info?.cateLists ?? "");
     const cateLists =
@@ -2233,19 +2848,25 @@ export function setupShein() {
 
     const specDefines = parseMaybeJson(info?.spec_defines ?? info?.specDefines ?? info?.spec_define ?? info?.specs);
     setTextareaJson(specDefinesInput, specDefines);
+    const rowsFromSpecDefines = buildSpecRowsFromSpecDefines(specDefines);
+    const specMapsFromDefines = buildSpecValueMapsFromDefines(specDefines);
 
-    const specArr = Array.isArray(specDefines) ? specDefines : [];
-    if (specArr.length) {
-      const main = specArr[0] || {};
-      const other = specArr[1] || {};
-      const mainVals = Array.isArray(main?.spec_value_vals) ? main.spec_value_vals : [];
-      const otherVals = Array.isArray(other?.spec_value_vals) ? other.spec_value_vals : [];
-      sheinSpecMainRows = mainVals
-        .map((v) => ({ name: String(main?.type_name ?? main?.type_id ?? "主规格"), value: String(v ?? "").trim() }))
-        .filter((r) => r.value);
-      sheinSpecOtherRows = otherVals
-        .map((v) => ({ name: String(other?.type_name ?? other?.type_id ?? "次规格"), value: String(v ?? "").trim() }))
-        .filter((r) => r.value);
+    const productsRaw = parseMaybeJson(info?.products ?? info?.product_list ?? info?.sku_list ?? "");
+    const products = Array.isArray(productsRaw)
+      ? productsRaw
+      : Array.isArray(productsRaw?.list)
+        ? productsRaw.list
+        : Array.isArray(productsRaw?.data)
+          ? productsRaw.data
+          : [];
+    editingSheinProductIds = extractProductIdsFromProducts(products);
+    const rowsFromSkus = buildSpecRowsFromProductSkus(products, specMapsFromDefines);
+    if (rowsFromSkus.mainRows.length || rowsFromSkus.otherRows.length) {
+      sheinSpecMainRows = rowsFromSkus.mainRows.length ? rowsFromSkus.mainRows : rowsFromSpecDefines.mainRows;
+      sheinSpecOtherRows = rowsFromSkus.otherRows.length ? rowsFromSkus.otherRows : rowsFromSpecDefines.otherRows;
+    } else {
+      sheinSpecMainRows = rowsFromSpecDefines.mainRows;
+      sheinSpecOtherRows = rowsFromSpecDefines.otherRows;
     }
 
     const productSn = parseMaybeJson(info?.product_sn ?? info?.productSn ?? info?.product_sn_list ?? "");
@@ -2264,39 +2885,53 @@ export function setupShein() {
     setTextareaJson(colorBlockImagesInput, colorBlockImages);
     setTextareaJson(detailImagesInput, detailImages);
 
-    if (Array.isArray(productPrice) && sheinSpecMainRows.length) {
-      const mainRows = sheinSpecMainRows.filter((r) => r?.name && r?.value);
-      const otherRows = sheinSpecOtherRows.filter((r) => r?.name && r?.value);
-      const prices = Array.isArray(productPrice) ? productPrice : [];
-      const stocks = Array.isArray(productNumber) ? productNumber : [];
-      const sns = Array.isArray(productSn) ? productSn : [];
+    if (sheinSpecMainRows.length) {
+      syncSupplyRows();
       const next = new Map();
-      let idx = 0;
-      if (otherRows.length) {
-        mainRows.forEach((main) => {
-          otherRows.forEach((other) => {
-            const key = buildSupplyKey(main, other);
-            next.set(key, {
-              main,
-              other,
-              price: String(prices[idx] ?? ""),
-              stock: String(stocks[idx] ?? ""),
-              sn: String(sns[idx] ?? ""),
-            });
-            idx += 1;
-          });
+      Array.from(sheinSupplyRows.entries()).forEach(([key, row]) => {
+        next.set(key, {
+          specs: Array.isArray(row?.specs) ? row.specs : [],
+          price: "",
+          stock: "",
+          sn: "",
         });
-      } else {
-        mainRows.forEach((main) => {
-          const key = buildSupplyKey(main, null);
+      });
+
+      let mappedSkuCount = 0;
+      if (products.length) {
+        const templateMaps = buildSpecValueMapsById();
+        const mainIdMap = mergeSpecValueMaps(templateMaps.mainIdMap, specMapsFromDefines.mainIdMap);
+        const otherIdMap = mergeSpecValueMaps(templateMaps.otherIdMap, specMapsFromDefines.otherIdMap);
+        products.forEach((sku) => {
+          const ids = extractSheinGoodsAttrIds(getSkuSheinGoodsAttrRaw(sku));
+          if (!ids.length) return;
+          const specs = resolveSpecsFromIds(ids, mainIdMap, otherIdMap);
+          if (!specs.length) return;
+          const key = buildSupplyKey(specs);
+          if (!key || !next.has(key)) return;
+          const row = next.get(key) || { specs: [] };
+          const fields = getSkuSupplyFields(sku);
           next.set(key, {
-            main,
-            other: null,
+            specs: Array.isArray(row?.specs) && row.specs.length ? row.specs : specs,
+            price: fields.price,
+            stock: fields.stock,
+            sn: fields.sn,
+          });
+          mappedSkuCount += 1;
+        });
+      }
+
+      if (!mappedSkuCount && Array.isArray(productPrice)) {
+        const prices = Array.isArray(productPrice) ? productPrice : [];
+        const stocks = Array.isArray(productNumber) ? productNumber : [];
+        const sns = Array.isArray(productSn) ? productSn : [];
+        Array.from(next.entries()).forEach(([key, row], idx) => {
+          next.set(key, {
+            specs: Array.isArray(row?.specs) ? row.specs : [],
             price: String(prices[idx] ?? ""),
             stock: String(stocks[idx] ?? ""),
             sn: String(sns[idx] ?? ""),
           });
-          idx += 1;
         });
       }
       sheinSupplyRows = next;
@@ -2313,7 +2948,7 @@ export function setupShein() {
       isRecord(colorBlockImages) ||
       isRecord(detailImages)
     ) {
-      const rows = sheinSpecMainRows.filter((r) => r?.name && r?.value);
+      const rows = getFirstMainSpecRow();
       const idToValue = new Map();
       sheinSpecMainList.forEach((spec) => {
         spec.values.forEach((opt) => {
@@ -2377,6 +3012,9 @@ export function setupShein() {
     renderSheinTemplateForm();
     renderImagePreview();
     openAllSteps();
+    } finally {
+      sheinApplyingEditData = false;
+    }
   };
 
   const loadSheinInfoForEdit = async (goodsId) => {
@@ -2611,11 +3249,14 @@ export function setupShein() {
 
   if (createBtn) {
     createBtn.addEventListener("click", async () => {
+      clearSheinSubmitJumpTimer();
       const catId = getCatId();
       if (!catId) {
         setPre(createPre, { code: "1", msg: "请先选择类目" });
         return;
       }
+      const goodsId = String(editingSheinGoodsId || "").trim();
+      const isEditingSubmit = Boolean(goodsId);
       syncSheinGoodsAttr();
       syncSheinOthers();
       const payload = {
@@ -2639,10 +3280,13 @@ export function setupShein() {
         color_block_images: parseJsonMaybe(colorBlockImagesInput?.value),
         detail_images: parseJsonMaybe(detailImagesInput?.value),
       };
+      if (isEditingSubmit) payload.goods_id = goodsId;
+      if (isEditingSubmit) payload.product_id = Array.isArray(editingSheinProductIds) ? editingSheinProductIds : [];
       createBtn.disabled = true;
-      createBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin mr-1"></i>提交中...';
+      createBtn.innerHTML = `<i class="fas fa-circle-notch fa-spin mr-1"></i>${isEditingSubmit ? "更新中..." : "提交中..."}`;
       try {
-        const res = await postAuthedJson("/api/shein/insert", payload);
+        const apiPath = isEditingSubmit ? "/api/shein/update" : "/api/shein/insert";
+        const res = await postAuthedJson(apiPath, payload);
         if (String(res?.code) === "2") {
           clearAuth();
           window.location.href = "./login.html";
@@ -2650,25 +3294,29 @@ export function setupShein() {
         }
         lastSubmitOk = String(res?.code) === "0";
         if (lastSubmitOk) {
-          if (createPre) createPre.textContent = "";
-          if (stepHint4) stepHint4.textContent = "";
-          resetUpload();
-          setSubView("list", { updateHash: true });
-          try {
-            window.localStorage.removeItem("topm:cat-selection:shein");
-            window.sessionStorage.removeItem("topm:shein-edit-id");
-          } catch {
-            // ignore
-          }
+          setPre(createPre, { code: "0", msg: "提交成功" });
+          if (stepHint4) stepHint4.textContent = "提交成功，3秒后跳转列表页";
+          sheinSubmitJumpTimer = window.setTimeout(async () => {
+            sheinSubmitJumpTimer = null;
+            resetUpload();
+            try {
+              window.localStorage.removeItem("topm:cat-selection:shein");
+              window.sessionStorage.removeItem("topm:shein-edit-id");
+            } catch {
+              // ignore
+            }
+            setSubView("list", { updateHash: true });
+            await load();
+          }, 3000);
           return;
         }
         setPre(createPre, res);
-        if (stepHint4) stepHint4.textContent = "提交失败";
+        if (stepHint4) stepHint4.textContent = isEditingSubmit ? "更新失败" : "提交失败";
       } catch {
-        setPre(createPre, { code: "1", msg: "提交失败" });
+        setPre(createPre, { code: "1", msg: isEditingSubmit ? "更新失败" : "提交失败" });
       } finally {
-        createBtn.disabled = false;
-        createBtn.innerHTML = '<i class="fas fa-paper-plane mr-1"></i>提交';
+        createBtn.disabled = Boolean(sheinSubmitJumpTimer);
+        syncCreateBtnLabel();
         updateStepChecks();
       }
     });
@@ -2684,6 +3332,7 @@ export function setupShein() {
   renderSpecCards();
   syncSpecDefines();
   renderImagePreview();
+  syncCreateBtnLabel();
   setStep(1);
   load();
 }
