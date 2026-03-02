@@ -148,13 +148,66 @@ export function setupShein() {
   };
 
   const clearSheinSubmitJumpTimer = () => {
-    if (!sheinSubmitJumpTimer) return;
+    if (sheinSubmitJumpTimer) {
+      try {
+        window.clearTimeout(sheinSubmitJumpTimer);
+      } catch {
+        // ignore
+      }
+      sheinSubmitJumpTimer = null;
+    }
+    const el = document.getElementById("shein-submit-success-modal");
+    if (el) el.remove();
+  };
+
+  const jumpToSheinListAfterSubmitSuccess = async () => {
+    clearSheinSubmitJumpTimer();
+    resetUpload();
     try {
-      window.clearTimeout(sheinSubmitJumpTimer);
+      window.localStorage.removeItem("topm:cat-selection:shein");
+      window.sessionStorage.removeItem("topm:shein-edit-id");
     } catch {
       // ignore
     }
-    sheinSubmitJumpTimer = null;
+    page = 1;
+    setSubView("list", { updateHash: true });
+    await load();
+  };
+
+  const showSheinSubmitSuccessDialog = () => {
+    clearSheinSubmitJumpTimer();
+    const overlay = document.createElement("div");
+    overlay.id = "shein-submit-success-modal";
+    overlay.className = "fixed inset-0 z-[80] flex items-center justify-center px-4 py-6";
+    overlay.innerHTML = `
+      <div class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm"></div>
+      <div class="relative w-full max-w-md rounded-3xl border border-slate-200 bg-white shadow-soft overflow-hidden">
+        <div class="px-5 py-4 border-b border-slate-100 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center">
+            <i class="fas fa-circle-check text-emerald-600"></i>
+          </div>
+          <div>
+            <div class="text-base font-black text-slate-900">提交成功</div>
+            <div class="text-xs text-slate-400 mt-0.5">即将返回 Shein 商品列表</div>
+          </div>
+        </div>
+        <div class="px-5 py-4 text-sm text-slate-600">
+          点击确定后跳转到列表页并刷新数据。
+        </div>
+        <div class="px-5 pb-5 flex items-center justify-end gap-2">
+          <button type="button" data-submit-success-action="now" class="px-4 py-2 rounded-xl bg-accent text-white text-xs font-semibold hover:bg-accent/90">
+            确定
+          </button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+
+    overlay.addEventListener("click", (e) => {
+      const btn = e.target?.closest?.("[data-submit-success-action='now']");
+      if (!btn) return;
+      jumpToSheinListAfterSubmitSuccess();
+    });
   };
 
   const setSummary = (t) => {
@@ -887,6 +940,13 @@ export function setupShein() {
   };
 
   const buildSpecKey = (row) => `${String(row?.name ?? "").trim()}::${String(row?.value ?? "").trim()}`;
+  const normalizeSheinImgId = (img) =>
+    String(img?.img_id ?? img?.image_id ?? img?.id ?? img?.imgId ?? img?.imageId ?? "0").trim() || "0";
+  const normalizeSheinImageItem = (img) => {
+    const url = String(img?.img_url ?? img?.url ?? "").trim();
+    if (!url) return null;
+    return { img_url: url, img_id: normalizeSheinImgId(img) };
+  };
 
   const IMAGE_TYPE_META = {
     "2": {
@@ -1047,7 +1107,9 @@ export function setupShein() {
         if (!valueId) return;
         const key = buildSpecKey(row);
         const bucket = sheinImageBuckets.get(key);
-        const list = (bucket?.images?.[type] || []).map((it) => ({ img_url: it.img_url }));
+        const list = (bucket?.images?.[type] || [])
+          .map((it) => normalizeSheinImageItem(it))
+          .filter(Boolean);
         if (list.length) result[valueId] = list;
       });
       return result;
@@ -1378,15 +1440,22 @@ export function setupShein() {
   const syncSheinOthers = () => {
     if (!sheinOthersInput) return;
     const entries = [];
+    const pushOtherEntry = (attributeId, valueId, extraValue) => {
+      const entry = { attribute_id: attributeId };
+      const id = String(valueId ?? "").trim();
+      const extra = String(extraValue ?? "").trim();
+      if (id) entry.attribute_value_id = id;
+      if (extra) entry.attribute_extra_value = extra;
+      if (entry.attribute_value_id || entry.attribute_extra_value) entries.push(entry);
+    };
     sheinAttrList.forEach((attr) => {
       const sel = sheinAttrSelections.get(attr.key);
       if (!sel) return;
       const attrId = String(attr?.id ?? "").trim();
       if (!attrId) return;
-      const entry = { attribute_id: attrId };
       if (attr.mode === "0") {
         const val = String(sel?.value ?? "").trim();
-        if (val) entry.attribute_extra_value = val;
+        pushOtherEntry(attrId, "", val);
       } else if (attr.mode === "4") {
         const rows = Array.isArray(sel?.rows) ? sel.rows : [];
         const labelToId = new Map(
@@ -1401,26 +1470,23 @@ export function setupShein() {
             return { nameId, value };
           })
           .filter((r) => r.nameId && r.value);
-        const ids = pairs.map((r) => r.nameId);
-        const extras = pairs.map((r) => r.value);
-        if (ids.length) entry.attribute_value_id = ids.join(",");
-        if (extras.length) entry.attribute_extra_value = extras.join(",");
+        pairs.forEach((pair) => pushOtherEntry(attrId, pair.nameId, pair.value));
+      } else if (attr.mode === "1" || attr.mode === "3") {
+        const values = Array.isArray(sel?.values) ? sel.values : [];
+        values.forEach((v) => {
+          const opt = attr.options.find((o) => String(o.label) === String(v));
+          const id = String(opt?.id ?? "").trim();
+          pushOtherEntry(attrId, id, "");
+        });
       } else {
         const values = Array.isArray(sel?.values) ? sel.values : [];
-        const ids = [];
-        const extras = [];
         values.forEach((v) => {
           const opt = attr.options.find((o) => String(o.label) === String(v));
           const id = String(opt?.id ?? "").trim();
           const extra = String(opt?.extraValue ?? v ?? "").trim();
-          if (id) ids.push(id);
-          if (extra) extras.push(extra);
+          pushOtherEntry(attrId, id, extra);
         });
-        if (ids.length) entry.attribute_value_id = ids.join(",");
-        if (extras.length) entry.attribute_extra_value = extras.join(",");
       }
-      const hasValues = Boolean(entry.attribute_value_id || entry.attribute_extra_value);
-      if (hasValues) entries.push(entry);
     });
     sheinOthersInput.value = entries.length ? JSON.stringify(entries, null, 2) : "";
   };
@@ -2417,6 +2483,7 @@ export function setupShein() {
     editingSheinProductIds = [];
     sheinCatCheckSeq += 1;
     syncCreateBtnLabel();
+    if (createBtn) createBtn.disabled = false;
     try {
       window.sessionStorage.removeItem("topm:shein-edit-id");
     } catch {
@@ -2979,7 +3046,9 @@ export function setupShein() {
             imgs.forEach((img) => {
               const url = String(img?.img_url ?? img?.url ?? "").trim();
               if (!url) return;
-              bucket.images[type].push({ img_url: url, img_id: String(img?.img_id ?? "0") });
+              const normalized = normalizeSheinImageItem(img);
+              if (!normalized) return;
+              bucket.images[type].push(normalized);
             });
           });
           return;
@@ -2996,7 +3065,9 @@ export function setupShein() {
           imgList.forEach((img) => {
             const url = String(img?.img_url ?? img?.url ?? "").trim();
             if (!url) return;
-            bucket.images[type].push({ img_url: url, img_id: String(img?.img_id ?? "0") });
+            const normalized = normalizeSheinImageItem(img);
+            if (!normalized) return;
+            bucket.images[type].push(normalized);
           });
         });
       };
@@ -3178,7 +3249,7 @@ export function setupShein() {
     const imgUrl =
       raw?.img_url || raw?.url || raw?.data?.img_url || raw?.data?.url || extractFirstUrl(JSON.stringify(raw));
     if (!imgUrl) return { error: "上传失败" };
-    return { img_url: imgUrl, img_id: raw?.img_id || "0" };
+    return { img_url: imgUrl, img_id: "0" };
   };
 
   if (imagePreview && !imagePreview.dataset.bound) {
@@ -3294,20 +3365,9 @@ export function setupShein() {
         }
         lastSubmitOk = String(res?.code) === "0";
         if (lastSubmitOk) {
-          setPre(createPre, { code: "0", msg: "提交成功" });
-          if (stepHint4) stepHint4.textContent = "提交成功，3秒后跳转列表页";
-          sheinSubmitJumpTimer = window.setTimeout(async () => {
-            sheinSubmitJumpTimer = null;
-            resetUpload();
-            try {
-              window.localStorage.removeItem("topm:cat-selection:shein");
-              window.sessionStorage.removeItem("topm:shein-edit-id");
-            } catch {
-              // ignore
-            }
-            setSubView("list", { updateHash: true });
-            await load();
-          }, 3000);
+          setPre(createPre, "");
+          if (stepHint4) stepHint4.textContent = "提交成功，即将跳转列表页";
+          showSheinSubmitSuccessDialog();
           return;
         }
         setPre(createPre, res);

@@ -2366,8 +2366,6 @@ export function setupTikTok() {
 
   let listPage = 1;
   let listTotal = 0;
-  let tiktokSubmitSuccessTimer = null;
-  let tiktokSubmitCountdownTimer = null;
 
   const readListSize = () => {
     let v = Number(listSize?.value || 15);
@@ -2534,14 +2532,6 @@ export function setupTikTok() {
   };
 
   const clearTikTokSubmitSuccessDialog = () => {
-    if (tiktokSubmitSuccessTimer) {
-      clearTimeout(tiktokSubmitSuccessTimer);
-      tiktokSubmitSuccessTimer = null;
-    }
-    if (tiktokSubmitCountdownTimer) {
-      clearInterval(tiktokSubmitCountdownTimer);
-      tiktokSubmitCountdownTimer = null;
-    }
     const el = document.getElementById("tiktok-submit-success-modal");
     if (el) el.remove();
   };
@@ -2572,35 +2562,16 @@ export function setupTikTok() {
           </div>
         </div>
         <div class="px-5 py-4 text-sm text-slate-600">
-          3 秒后自动跳转到列表页并刷新数据。
+          点击确定后跳转到列表页并刷新数据。
         </div>
-        <div class="px-5 pb-5 flex items-center justify-between gap-2">
-          <div class="text-xs text-slate-500">
-            倒计时：<span data-submit-countdown class="font-black text-slate-700">3</span>s
-          </div>
+        <div class="px-5 pb-5 flex items-center justify-end gap-2">
           <button type="button" data-submit-success-action="now" class="px-4 py-2 rounded-xl bg-accent text-white text-xs font-semibold hover:bg-accent/90">
-            立即跳转
+            确定
           </button>
         </div>
       </div>
     `;
     document.body.appendChild(overlay);
-
-    const countdownEl = overlay.querySelector("[data-submit-countdown]");
-    let remain = 3;
-    tiktokSubmitCountdownTimer = setInterval(() => {
-      remain -= 1;
-      if (countdownEl) countdownEl.textContent = String(Math.max(0, remain));
-      if (remain <= 0) {
-        if (tiktokSubmitCountdownTimer) {
-          clearInterval(tiktokSubmitCountdownTimer);
-          tiktokSubmitCountdownTimer = null;
-        }
-      }
-    }, 1000);
-    tiktokSubmitSuccessTimer = setTimeout(() => {
-      jumpToTikTokListAfterSubmitSuccess();
-    }, 3000);
 
     overlay.addEventListener("click", (e) => {
       const btn = e.target?.closest?.("[data-submit-success-action='now']");
@@ -5484,18 +5455,22 @@ export function setupTikTok() {
       }
       const endpoint = isEditing ? "/api/tiktok/update" : "/api/tiktok/insert";
       const res = await postAuthedJson(endpoint, payload);
-      setPre(createPre, res);
-      if (String(res?.code) === "0") {
-        if (!isEditing) {
-          clearDraft();
-          draftState = null;
-          draftApplied = false;
-        }
-        const submitMsg = String(res?.msg ?? "").trim();
-        if (/^ok$/i.test(submitMsg)) {
-          showTikTokSubmitSuccessDialog();
-        }
+      if (String(res?.code) === "2") {
+        clearAuth();
+        window.location.href = "./login.html";
+        return;
       }
+      if (String(res?.code) !== "0") {
+        setPre(createPre, res);
+        return;
+      }
+      setPre(createPre, "");
+      if (!isEditing) {
+        clearDraft();
+        draftState = null;
+        draftApplied = false;
+      }
+      showTikTokSubmitSuccessDialog();
     });
   }
   if (stepBtn1) stepBtn1.addEventListener("click", () => tryGoStep(1));
